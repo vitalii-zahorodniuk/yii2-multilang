@@ -5,10 +5,20 @@ use Yii;
 use yii\bootstrap\Widget;
 use yii\helpers\Url;
 
+/**
+ * Class SeoLangs
+ * @package xz1mefx\multilang\widgets
+ */
 class SeoLangs extends Widget
 {
+    /**
+     * @var string
+     */
     public $alternateLinkTemplate = "<link rel=\"alternate\" hreflang=\"{hreflang}\" href=\"{href}\"/>";
 
+    /**
+     * @return string
+     */
     public function run()
     {
         $content = '';
