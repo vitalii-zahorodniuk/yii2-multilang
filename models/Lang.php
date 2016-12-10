@@ -1,10 +1,10 @@
 <?php
-
 namespace xz1mefx\multilang\models;
 
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "{{%lang}}".
@@ -25,6 +25,36 @@ class Lang extends ActiveRecord
     public static function tableName()
     {
         return '{{%lang}}';
+    }
+
+    /**
+     * Return all languages in array
+     * @return array
+     */
+    public static function getLangListArray()
+    {
+        $cacheKey = [__CLASS__, 'langListArray'];
+        if (Yii::$app->cache->exists($cacheKey)) {
+            return Yii::$app->cache->get($cacheKey);
+        }
+        $res = ArrayHelper::index(self::find()->asArray()->all(), 'url');
+        Yii::$app->cache->set($cacheKey, $res, 60 * 60 * 24);
+        return $res;
+    }
+
+    /**
+     * Get default language data
+     * @return array
+     */
+    public static function getDefaultLang()
+    {
+        $cacheKey = [__CLASS__, 'defaultLang'];
+        if (Yii::$app->cache->exists($cacheKey)) {
+            return Yii::$app->cache->get($cacheKey);
+        }
+        $res = self::findOne(['default' => 1,])->getAttributes();
+        Yii::$app->cache->set($cacheKey, $res, 60 * 60 * 24);
+        return $res;
     }
 
     /**
@@ -56,6 +86,33 @@ class Lang extends ActiveRecord
             [['url'], 'unique'],
             [['local'], 'unique'],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        self::clearCache();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
+     * Clear model cache
+     */
+    private static function clearCache()
+    {
+        Yii::$app->cache->delete([__CLASS__, 'langList']);
+        Yii::$app->cache->delete([__CLASS__, 'defaultLang']);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterDelete()
+    {
+        self::clearCache();
+        parent::afterDelete();
     }
 
     /**

@@ -10,24 +10,43 @@ Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-Either run
+1. either run
 
 ```
 php composer.phar require --prefer-dist xz1mefx/yii2-multilang "dev-master"
 ```
 
-or add
-
-```
-"xz1mefx/yii2-multilang": "dev-master"
-```
-
-to the require section of your `composer.json` file.
-
-Execute migration:
+2. execute migration:
 
 ```
 php yii migrate --migrationPath=@vendor/xz1mefx/yii2-multilang/migrations --interactive=0
+```
+
+3. add components to common/main config file (or change components classes):
+```
+'urlManager' => [
+    'class' => \xz1mefx\multilang\web\UrlManager::className(),
+],
+'request' => [
+    'class' => \xz1mefx\multilang\web\Request::className(),
+],
+'lang' => [
+    'class' => \xz1mefx\multilang\components\Lang::className(),
+],
+```
+
+4. if you use `iiifx-production/yii2-autocomplete-helper` you need to run:
+```
+composer autocomplete
+```
+
+5. override components in console/main config file:
+```
+'request' => [ // override common config
+    'class' => 'yii\console\Request',
+],
+'urlManager' => [], // override common config
+'i18n' => [], // override common config
 ```
 
 

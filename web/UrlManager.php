@@ -1,10 +1,10 @@
 <?php
+namespace xz1mefx\multilang\web;
 
-namespace common\components\web;
+use Yii;
 
 class UrlManager extends \yii\web\UrlManager
 {
-
     /**
      * Creates a URL using the given route and query parameters.
      *
@@ -36,7 +36,7 @@ class UrlManager extends \yii\web\UrlManager
      */
     public function createUrl($params)
     {
-        return \Yii::$app->lang->urlManagerHandleCreatedUrl(parent::createUrl($params)); // create URL with language code
+        return Yii::$app->lang->urlManagerHandleCreatedUrl(parent::createUrl($params)); // create URL with language code
     }
 
 }

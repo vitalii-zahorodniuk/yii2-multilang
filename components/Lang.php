@@ -1,12 +1,12 @@
 <?php
+namespace xz1mefx\multilang\components;
 
-namespace common\components;
-
-use common\models\lang\Lang as LangModel;
+use xz1mefx\multilang\models\Lang as LangModel;
 use Yii;
+use yii\base\Component;
 use yii\helpers\Url;
 
-class Lang extends \yii\base\Component
+class Lang extends Component
 {
 
     /**
@@ -166,8 +166,8 @@ class Lang extends \yii\base\Component
     /**
      * Create URL with language.
      * (only for handle \yii\web\UrlManager::createUrl())
-     * @param type $url
-     * @return type
+     * @param $url
+     * @return string
      */
     public function urlManagerHandleCreatedUrl($url)
     {

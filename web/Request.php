@@ -1,10 +1,11 @@
 <?php
+namespace xz1mefx\multilang\web;
 
-namespace common\components\web;
+use Yii;
+use yii\base\InvalidConfigException;
 
 class Request extends \yii\web\Request
 {
-
     /**
      * Resolves the path info part of the currently requested URL.
      * A path info refers to the part that is after the entry script and before the question mark (query string).
@@ -15,7 +16,7 @@ class Request extends \yii\web\Request
      */
     public function resolvePathInfo()
     {
-        $pathInfo = \Yii::$app->lang->requestHandleLang($this->getUrl());
+        $pathInfo = Yii::$app->lang->requestHandleLang($this->getUrl());
 
         if (($pos = strpos($pathInfo, '?')) !== false) {
             $pathInfo = substr($pathInfo, 0, $pos);
@@ -57,5 +58,4 @@ class Request extends \yii\web\Request
 
         return (string)$pathInfo;
     }
-
 }

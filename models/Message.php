@@ -1,5 +1,4 @@
 <?php
-
 namespace xz1mefx\multilang\models;
 
 use Yii;

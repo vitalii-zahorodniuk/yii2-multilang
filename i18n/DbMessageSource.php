@@ -1,6 +1,5 @@
 <?php
-
-namespace common\components\i18n;
+namespace xz1mefx\multilang\i18n;
 
 use Yii;
 
