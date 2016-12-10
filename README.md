@@ -13,7 +13,7 @@ The preferred way to install this extension is through [composer](http://getcomp
 1. either run
 
 ```
-php composer.phar require --prefer-dist xz1mefx/yii2-multilang "dev-master"
+php composer.phar require --prefer-dist xz1mefx/yii2-multilang "1.0.0-rc"
 ```
 
 2. execute migration:
