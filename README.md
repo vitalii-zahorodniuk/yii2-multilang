@@ -10,65 +10,63 @@ Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-1. either run
+1.  either run
+    ```
+    php composer.phar require --prefer-dist xz1mefx/yii2-multilang "1.0.0-rc"
+    ```
 
-```
-php composer.phar require --prefer-dist xz1mefx/yii2-multilang "1.0.0-rc"
-```
+2.  execute migration:
+    ```
+    php yii migrate --migrationPath=@vendor/xz1mefx/yii2-multilang/migrations --interactive=0
+    ```
 
-2. execute migration:
-
-```
-php yii migrate --migrationPath=@vendor/xz1mefx/yii2-multilang/migrations --interactive=0
-```
-
-3. add components to common/main config file (or change components classes):
-```php
-'urlManager' => [
-    'class' => \xz1mefx\multilang\web\UrlManager::className(),
-],
-'request' => [
-    'class' => \xz1mefx\multilang\web\Request::className(),
-],
-'i18n' => [
-    'translations' => [
-        '*' => [
-            'class' => \xz1mefx\multilang\i18n\DbMessageSource::className(),
-            'forceTranslation' => true,
-            'enableCaching' => true,
-            'cachingDuration' => 60 * 60, // in sec
-        ],
-        'app' => [
-            'class' => \xz1mefx\multilang\i18n\DbMessageSource::className(),
-            'forceTranslation' => true,
-            'enableCaching' => true,
-            'cachingDuration' => 60 * 60, // in sec
+3.  add components to common/main config file (or change components classes):
+    ```php
+    'urlManager' => [
+        'class' => \xz1mefx\multilang\web\UrlManager::className(),
+    ],
+    'request' => [
+        'class' => \xz1mefx\multilang\web\Request::className(),
+    ],
+    'i18n' => [
+        'translations' => [
+            '*' => [
+                'class' => \xz1mefx\multilang\i18n\DbMessageSource::className(),
+                'forceTranslation' => true,
+                'enableCaching' => true,
+                'cachingDuration' => 60 * 60, // in sec
+            ],
+            'app' => [
+                'class' => \xz1mefx\multilang\i18n\DbMessageSource::className(),
+                'forceTranslation' => true,
+                'enableCaching' => true,
+                'cachingDuration' => 60 * 60, // in sec
+            ],
         ],
     ],
-],
-'lang' => [
-    'class' => \xz1mefx\multilang\components\Lang::className(),
-],
-```
+    'lang' => [
+        'class' => \xz1mefx\multilang\components\Lang::className(),
+    ],
+    ```
 
-4. if you use `iiifx-production/yii2-autocomplete-helper` you need to run:
-```
-composer autocomplete
-```
+4.  if you use `iiifx-production/yii2-autocomplete-helper` you need to run:
+    ```
+    composer autocomplete
+    ```
 
-5. override components in console/main config file:
-```php
-'request' => [ // override common config
-    'class' => 'yii\console\Request',
-],
-'urlManager' => [], // override common config
-'i18n' => [], // override common config
-```
+5.  override components in console/main config file:
+    ```php
+    'request' => [ // override common config
+        'class' => 'yii\console\Request',
+    ],
+    'urlManager' => [], // override common config
+    'i18n' => [], // override common config
+    ```
 
-6. add SeoLangs widget to page <head> section in layout(s):
-```php
-<?= \xz1mefx\multilang\widgets\SeoLangs::widget() ?>
-```
+6.  add SeoLangs widget to page `<head></head>` section in layout(s):
+    ```php
+    <?= \xz1mefx\multilang\widgets\SeoLangs::widget() ?>
+    ```
 
 
 [ico-version]: https://img.shields.io/packagist/v/xz1mefx/yii2-multilang.svg
