@@ -23,7 +23,7 @@ php yii migrate --migrationPath=@vendor/xz1mefx/yii2-multilang/migrations --inte
 ```
 
 3. add components to common/main config file (or change components classes):
-```
+```php
 'urlManager' => [
     'class' => \xz1mefx\multilang\web\UrlManager::className(),
 ],
@@ -41,12 +41,17 @@ composer autocomplete
 ```
 
 5. override components in console/main config file:
-```
+```php
 'request' => [ // override common config
     'class' => 'yii\console\Request',
 ],
 'urlManager' => [], // override common config
 'i18n' => [], // override common config
+```
+
+6. add SeoLangs widget to page <head> section in layout(s):
+```php
+<?= \xz1mefx\multilang\widgets\SeoLangs::widget() ?>
 ```
 
 
