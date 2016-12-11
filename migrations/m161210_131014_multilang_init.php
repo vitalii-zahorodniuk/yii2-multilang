@@ -40,7 +40,7 @@ class m161210_131014_multilang_init extends Migration
         $this->insert('{{%lang}}', [
             'url' => 'uk',
             'local' => 'uk-UA',
-            'name' => 'Русский',
+            'name' => 'Українська',
             'created_at' => time(),
             'updated_at' => time(),
         ]);

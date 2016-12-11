@@ -58,15 +58,6 @@ class Lang extends ActiveRecord
     }
 
     /**
-     * Clear model cache
-     */
-    private static function clearCache()
-    {
-        Yii::$app->cache->delete([__CLASS__, 'langList']);
-        Yii::$app->cache->delete([__CLASS__, 'defaultLang']);
-    }
-
-    /**
      * @inheritdoc
      */
     public function behaviors()
@@ -79,6 +70,19 @@ class Lang extends ActiveRecord
                 'value' => time(),
             ],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeValidate()
+    {
+        if ($this->default == 0 && isset($this->oldAttributes['default']) && $this->oldAttributes['default'] == 1) {
+            Yii::$app->session->setFlash('danger', Yii::t('xz1mefx-multilang', 'You can only override the default language'));
+            return false;
+        }
+
+        return parent::beforeValidate();
     }
 
     /**
@@ -103,7 +107,25 @@ class Lang extends ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         self::clearCache();
+
+        if (
+            $this->default == 1
+            &&
+            ($insert || isset($changedAttributes['default']) && $this->default != $changedAttributes['default'])
+        ) {
+            self::updateAll(['default' => 0], ['and', ['default' => 1], ['!=', 'id', $this->id]]);
+        }
+
         parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
+     * Clear model cache
+     */
+    private static function clearCache()
+    {
+        Yii::$app->cache->delete([__CLASS__, 'langList']);
+        Yii::$app->cache->delete([__CLASS__, 'defaultLang']);
     }
 
     /**
@@ -112,6 +134,8 @@ class Lang extends ActiveRecord
     public function afterDelete()
     {
         self::clearCache();
+        // TODO: need to clear messages
+        // TODO: need to clear messages cache
         parent::afterDelete();
     }
 
