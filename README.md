@@ -29,14 +29,7 @@ The preferred way to install this extension is through [composer](http://getcomp
         'class' => \xz1mefx\multilang\web\Request::className(),
     ],
     'i18n' => [
-        'translations' => [
-            '*' => [
-                'class' => \xz1mefx\multilang\i18n\DbMessageSource::className(),
-            ],
-            'app' => [
-                'class' => \xz1mefx\multilang\i18n\DbMessageSource::className(),
-            ],
-        ],
+        'class' => \xz1mefx\multilang\i18n\I18N::className(),
     ],
     'lang' => [
         'class' => \xz1mefx\multilang\components\Lang::className(),
