@@ -180,6 +180,7 @@ class Lang extends Component
     /**
      * Get current URL with language
      * @param string $dDLang Double-digit language code
+     * @param boolean $scheme
      * @return string URL
      */
     public function getCurrentUrlWithLang($dDLang, $scheme = false)

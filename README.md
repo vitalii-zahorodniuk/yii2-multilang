@@ -10,17 +10,17 @@ Installation
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-1.  either run
-    ```
+1.  run
+    ```bash
     php composer.phar require --prefer-dist xz1mefx/yii2-multilang "1.0.0-rc"
     ```
 
 2.  execute migration:
-    ```
+    ```bash
     php yii migrate --migrationPath=@vendor/xz1mefx/yii2-multilang/migrations --interactive=0
     ```
 
-3.  add components to common/main config file (or change components classes):
+3.  add components to common config file (or change classes of components):
     ```php
     'urlManager' => [
         'class' => \xz1mefx\multilang\web\UrlManager::className(),
@@ -50,11 +50,11 @@ The preferred way to install this extension is through [composer](http://getcomp
     ```
 
 4.  if you use `iiifx-production/yii2-autocomplete-helper` you need to run:
-    ```
+    ```bash
     composer autocomplete
     ```
 
-5.  override components in console/main config file:
+5.  override components in console config file:
     ```php
     'request' => [ // override common config
         'class' => 'yii\console\Request',
@@ -67,7 +67,6 @@ The preferred way to install this extension is through [composer](http://getcomp
     ```php
     <?= \xz1mefx\multilang\widgets\SeoLangs::widget() ?>
     ```
-
 
 [ico-version]: https://img.shields.io/packagist/v/xz1mefx/yii2-multilang.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg

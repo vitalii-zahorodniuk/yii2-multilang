@@ -38,7 +38,7 @@ class Lang extends ActiveRecord
             return Yii::$app->cache->get($cacheKey);
         }
         $res = ArrayHelper::index(self::find()->asArray()->all(), 'url');
-        Yii::$app->cache->set($cacheKey, $res, 60 * 60 * 24);
+        Yii::$app->cache->set($cacheKey, $res);
         return $res;
     }
 
@@ -53,8 +53,17 @@ class Lang extends ActiveRecord
             return Yii::$app->cache->get($cacheKey);
         }
         $res = self::findOne(['default' => 1,])->getAttributes();
-        Yii::$app->cache->set($cacheKey, $res, 60 * 60 * 24);
+        Yii::$app->cache->set($cacheKey, $res);
         return $res;
+    }
+
+    /**
+     * Clear model cache
+     */
+    private static function clearCache()
+    {
+        Yii::$app->cache->delete([__CLASS__, 'langList']);
+        Yii::$app->cache->delete([__CLASS__, 'defaultLang']);
     }
 
     /**
@@ -95,15 +104,6 @@ class Lang extends ActiveRecord
     {
         self::clearCache();
         parent::afterSave($insert, $changedAttributes);
-    }
-
-    /**
-     * Clear model cache
-     */
-    private static function clearCache()
-    {
-        Yii::$app->cache->delete([__CLASS__, 'langList']);
-        Yii::$app->cache->delete([__CLASS__, 'defaultLang']);
     }
 
     /**
