@@ -1,39 +1,111 @@
 <?php
-
+use yii\bootstrap\Html;
+use yii\grid\ActionColumn;
 use yii\grid\GridView;
-use yii\helpers\Html;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
 /* @var $searchModel xz1mefx\multilang\models\search\LangSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $canAdd bool */
+/* @var $canUpdate bool */
+/* @var $canDelete bool */
 
-$this->title = Yii::t('xz1mefx-multilang', 'Langs');
+$this->title = Yii::t('xz1mefx-multilang', 'Languages');
+
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->params['title'] = $this->title;
+
+$this->registerCss(<<<CSS
+@media (max-width: 425px) {
+    .grid-view thead th:nth-child(3),
+    .grid-view thead th:nth-child(4),
+    .grid-view thead td:nth-child(3),
+    .grid-view thead td:nth-child(4),
+    .grid-view tbody td:nth-child(3),
+    .grid-view tbody td:nth-child(4) {
+        display: none;
+    }
+}
+
+@media (max-width: 375px) {
+    .grid-view thead th:nth-child(5),
+    .grid-view thead td:nth-child(5),
+    .grid-view tbody td:nth-child(5) {
+        display: none;
+    }
+
+    .default-lang-ico {
+        display: inline-block !important;
+    }
+}
+CSS
+);
 ?>
-<div class="lang-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<div class="box box-primary">
+    <div class="box-header">
+        <?php if ($canAdd): ?>
+            <?= Html::a(Yii::t('xz1mefx-multilang', 'Add language'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php endif; ?>
+        <div class="box-tools pull-right">
+            <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <?= Html::icon('minus', ['prefix' => 'fa fa-']) ?>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+        <div class="box-body-overflow">
+            <?php Pjax::begin(); ?>
+            <?= GridView::widget([
+                'dataProvider' => $dataProvider,
+                'filterModel' => $searchModel,
+                'columns' => [
+                    ['class' => 'yii\grid\SerialColumn'],
 
-    <p>
-        <?= Html::a(Yii::t('xz1mefx-multilang', 'Create Lang'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-    <?php Pjax::begin(); ?>    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+                    [
+                        'attribute' => 'name',
+                        'content' => function ($model) {
+                            /* @var $model \xz1mefx\multilang\models\Lang */
+                            return $model->name . ($model->default == 1 ? ' ' . Html::icon('ok', [
+                                    'class' => 'text-red default-lang-ico',
+                                    'style' => 'display: none;',
+                                ]) : '');
+                        },
+                    ],
+                    'url',
+                    'local',
+                    [
+                        'attribute' => 'default',
+                        'filter' => false,
+                        'headerOptions' => ['class' => 'text-center col-lg-1'],
+                        'contentOptions' => ['class' => 'text-center col-lg-1'],
+                        'content' => function ($model) {
+                            /* @var $model \xz1mefx\multilang\models\Lang */
+                            if ($model->default == 1) {
+                                return Html::icon('ok', ['class' => 'text-red']);
+                            }
+                            return NULL;
+                        },
+                    ],
 
-            'id',
-            'url:url',
-            'local',
-            'name',
-            'default',
-            // 'created_at',
-            // 'updated_at',
+                    [
+                        'class' => ActionColumn::className(),
+                        'visible' => $canUpdate || $canDelete,
+                        'headerOptions' => ['class' => 'text-center col-lg-1'],
+                        'contentOptions' => ['class' => 'text-center col-lg-1'],
+                        'template' => '{update} {delete}',
+                        'visibleButtons' => [
+                            'update' => $canUpdate,
+                            'delete' => $canDelete,
+                        ],
+                        // TODO: Add make default button
+                    ],
+                ],
+            ]); ?>
+            <?php Pjax::end(); ?>
 
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?></div>
+        </div>
+    </div>
+</div>

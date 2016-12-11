@@ -32,15 +32,9 @@ The preferred way to install this extension is through [composer](http://getcomp
         'translations' => [
             '*' => [
                 'class' => \xz1mefx\multilang\i18n\DbMessageSource::className(),
-                'forceTranslation' => true,
-                'enableCaching' => true,
-                'cachingDuration' => 60 * 60, // in sec
             ],
             'app' => [
                 'class' => \xz1mefx\multilang\i18n\DbMessageSource::className(),
-                'forceTranslation' => true,
-                'enableCaching' => true,
-                'cachingDuration' => 60 * 60, // in sec
             ],
         ],
     ],
@@ -67,6 +61,66 @@ The preferred way to install this extension is through [composer](http://getcomp
     ```php
     <?= \xz1mefx\multilang\widgets\SeoLangs::widget() ?>
     ```
+
+7.  add LangController (or another) with next code:
+    ```php
+    use xz1mefx\multilang\actions\lang\CreateAction;
+    use xz1mefx\multilang\actions\lang\DeleteAction;
+    use xz1mefx\multilang\actions\lang\IndexAction;
+    use xz1mefx\multilang\actions\lang\UpdateAction;
+    
+    ...
+    
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'index' => ['get'],
+                    'create' => ['get', 'post'],
+                    'update' => ['get', 'put', 'post'],
+                    'delete' => ['post', 'delete'],
+                ],
+            ],
+        ];
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'index' => [
+                'class' => IndexAction::className(),
+    //          'theme' => IndexAction::THEME_ADMINLTE,
+    //          'canAdd' => false,
+    //          'canUpdate' => false,
+    //          'canDelete' => false,
+            ],
+            'create' => [
+                'class' => CreateAction::className(),
+    //          'theme' => CreateAction::THEME_ADMINLTE,
+            ],
+            'update' => [
+                'class' => UpdateAction::className(),
+    //           'theme' => UpdateAction::THEME_ADMINLTE,
+            ],
+            'delete' => [
+                'class' => DeleteAction::className(),
+    //           'theme' => DeleteAction::THEME_ADMINLTE,
+            ],
+        ];
+    }
+    ```
+    , where you can change action theme (`IndexAction::THEME_BOOTSTRAP` - *by default* or `IndexAction::THEME_ADMINLTE`)
+    , view path and access to controls in index action.
+    
+    AdminLTE theme you can found in `xz1mefx/yii2-adminlte` package.
 
 [ico-version]: https://img.shields.io/packagist/v/xz1mefx/yii2-multilang.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg

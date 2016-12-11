@@ -2,9 +2,21 @@
 namespace xz1mefx\multilang\i18n;
 
 use Yii;
+use yii\db\Query;
+use yii\i18n\MissingTranslationEvent;
 
 class DbMessageSource extends \yii\i18n\DbMessageSource
 {
+    /**
+     * @var boolean whether to enable caching translated messages
+     */
+    public $enableCaching = true;
+
+    /**
+     * @var boolean whether to force message translation when the source and target languages are the same.
+     * Defaults to false, meaning translation is only performed when source and target languages are different.
+     */
+    public $forceTranslation = true;
 
     private $_messages = [];
 
@@ -30,7 +42,7 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
         }
         // calling event
         if ($this->hasEventHandlers(self::EVENT_MISSING_TRANSLATION)) {
-            $event = new \yii\i18n\MissingTranslationEvent([
+            $event = new MissingTranslationEvent([
                 'category' => $category,
                 'message' => $message,
                 'language' => $language,
@@ -113,7 +125,7 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
      */
     private function getSourceMessageId($category, $message)
     {
-        $query = new \yii\db\Query();
+        $query = new Query();
         $query->select('[[id]]')
             ->from($this->sourceMessageTable)
             ->where('BINARY [[category]]=:category AND BINARY [[message]]=:message')

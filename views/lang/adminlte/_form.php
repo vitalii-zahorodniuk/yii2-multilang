@@ -1,33 +1,38 @@
 <?php
-
-use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
+use yii\bootstrap\Html;
 
 /* @var $this yii\web\View */
 /* @var $model xz1mefx\multilang\models\Lang */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="lang-form">
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="box-body-overflow">
+            <?php $form = ActiveForm::begin(['enableAjaxValidation' => true, 'validateOnType' => true]); ?>
 
-    <?php $form = ActiveForm::begin(); ?>
+            <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'local')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'local')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            <?php if (!$model['default']): ?>
+                <?= $form->field($model, 'default')->checkbox() ?>
+                <p class="text-info" style="margin-top: -15px;">
+                    <?= Html::icon('info-sign') . ' ' . Yii::t('xz1mefx-multilang', 'If you select this option here, it will be reset everywhere') ?>
+                </p>
+            <?php endif; ?>
 
-    <?= $form->field($model, 'default')->textInput() ?>
+            <div class="form-group">
+                <?= Html::submitButton(
+                    $model->isNewRecord ? Yii::t('xz1mefx-multilang', 'Add language') : Yii::t('xz1mefx-multilang', 'Update language'),
+                    ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']
+                ) ?>
+            </div>
 
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('xz1mefx-multilang', 'Create') : Yii::t('xz1mefx-multilang', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?php ActiveForm::end(); ?>
+        </div>
     </div>
-
-    <?php ActiveForm::end(); ?>
-
 </div>

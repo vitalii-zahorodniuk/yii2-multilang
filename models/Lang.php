@@ -52,7 +52,7 @@ class Lang extends ActiveRecord
         if (Yii::$app->cache->exists($cacheKey)) {
             return Yii::$app->cache->get($cacheKey);
         }
-        $res = self::findOne(['default' => 1,])->getAttributes();
+        $res = self::findOne(['default' => 1])->getAttributes();
         Yii::$app->cache->set($cacheKey, $res);
         return $res;
     }
@@ -124,7 +124,7 @@ class Lang extends ActiveRecord
      */
     private static function clearCache()
     {
-        Yii::$app->cache->delete([__CLASS__, 'langList']);
+        Yii::$app->cache->delete([__CLASS__, 'langListArray']);
         Yii::$app->cache->delete([__CLASS__, 'defaultLang']);
     }
 

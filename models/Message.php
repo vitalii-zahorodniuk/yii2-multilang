@@ -48,7 +48,7 @@ class Message extends ActiveRecord
             [['id'], 'integer'],
             [['translation'], 'string'],
             [['language'], 'string', 'max' => 16],
-            [['id', 'language'], 'unique', 'targetAttribute' => ['id', 'language'], 'message' => 'The combination of ID and Language has already been taken.'],
+            [['id', 'language'], 'unique', 'targetAttribute' => ['id', 'language'], 'message' => Yii::t('xz1mefx-multilang', 'The combination of ID and Language has already been taken.')],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceMessage::className(), 'targetAttribute' => ['id' => 'id']],
         ];
     }

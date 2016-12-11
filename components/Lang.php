@@ -5,6 +5,7 @@ use xz1mefx\multilang\models\Lang as LangModel;
 use Yii;
 use yii\base\Component;
 use yii\helpers\Url;
+use yii\web\Cookie;
 
 class Lang extends Component
 {
@@ -156,7 +157,7 @@ class Lang extends Component
         $this->_dDLang = $dDLang;
         Yii::$app->language = $this->_langsList[$dDLang]['local'];
         Yii::$app->session->set('lang', $dDLang);
-        Yii::$app->response->cookies->add(new \yii\web\Cookie([
+        Yii::$app->response->cookies->add(new Cookie([
             'name' => 'lang',
             'value' => $dDLang,
             'expire' => time() + 60 * 60 * 24 * 90, // 3 month
