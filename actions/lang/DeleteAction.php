@@ -1,9 +1,9 @@
 <?php
 namespace xz1mefx\multilang\actions\lang;
 
+use xz1mefx\multilang\actions\BaseAction;
 use xz1mefx\multilang\models\Lang;
 use Yii;
-use yii\base\Action;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -14,15 +14,8 @@ use yii\web\NotFoundHttpException;
  *
  * @package xz1mefx\multilang\actions\lang
  */
-class DeleteAction extends Action
+class DeleteAction extends BaseAction
 {
-
-    const THEME_BOOTSTRAP = 'bootstrap';
-    const THEME_ADMINLTE = 'adminlte';
-
-    public $theme = self::THEME_BOOTSTRAP;
-    public $view = NULL;
-
     /**
      * @param $id
      * @return string

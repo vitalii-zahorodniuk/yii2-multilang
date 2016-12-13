@@ -5,22 +5,27 @@ Multilanguage tools package for yii2
 [![Software License][ico-license]](LICENSE.md)
 [![Total Downloads][ico-downloads]][link-downloads]
 
+The extension is a package of tools to implement multilanguage in Yii2 project:
+- Automatically redirects the user to the URL selected (automatically or manually) language and remembers the user selected language
+- Has a widget to set a correct hreflang attributes
+- Provides a CRUD actions for edit the list of languages and the interface translations
+
 Installation
 ------------
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-1.  run
+1.  The preferred way to install this extension is through [composer](http://getcomposer.org/download/), run:
     ```bash
     php composer.phar require --prefer-dist xz1mefx/yii2-multilang "1.0.0-rc"
     ```
 
-2.  execute migration:
+2.  Execute migration:
     ```bash
     php yii migrate --migrationPath=@vendor/xz1mefx/yii2-multilang/migrations --interactive=0
     ```
 
-3.  add components to common config file (or change classes of components):
+3.  Add components to common config file (or change classes of components):
     ```php
     'urlManager' => [
         'class' => \xz1mefx\multilang\web\UrlManager::className(),
@@ -36,12 +41,12 @@ The preferred way to install this extension is through [composer](http://getcomp
     ],
     ```
 
-4.  if you use `iiifx-production/yii2-autocomplete-helper` you need to run:
+4.  If you use `iiifx-production/yii2-autocomplete-helper` you need to run:
     ```bash
     composer autocomplete
     ```
 
-5.  override components in console config file:
+5.  Override components in console config file:
     ```php
     'request' => [ // override common config
         'class' => 'yii\console\Request',
@@ -50,12 +55,12 @@ The preferred way to install this extension is through [composer](http://getcomp
     'i18n' => [], // override common config
     ```
 
-6.  add SeoLangs widget to page `<head></head>` section in layout(s):
+6.  Add SeoLangs widget to page `<head></head>` section in layout(s):
     ```php
     <?= \xz1mefx\multilang\widgets\SeoLangs::widget() ?>
     ```
 
-7.  add LangController (or another) with next code:
+7.  Add LangController (or another) with next code:
     ```php
     use xz1mefx\multilang\actions\lang\CreateAction;
     use xz1mefx\multilang\actions\lang\DeleteAction;
@@ -63,24 +68,6 @@ The preferred way to install this extension is through [composer](http://getcomp
     use xz1mefx\multilang\actions\lang\UpdateAction;
     
     ...
-    
-    /**
-     * @inheritdoc
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'index' => ['get'],
-                    'create' => ['get', 'post'],
-                    'update' => ['get', 'put', 'post'],
-                    'delete' => ['post', 'delete'],
-                ],
-            ],
-        ];
-    }
     
     /**
      * @inheritdoc
@@ -110,10 +97,10 @@ The preferred way to install this extension is through [composer](http://getcomp
         ];
     }
     ```
-    , where you can change action theme (`IndexAction::THEME_BOOTSTRAP` - *by default* or `IndexAction::THEME_ADMINLTE`)
+    , where you can change action theme (`IndexAction::THEME_BOOTSTRAP` - *by default* or [`IndexAction::THEME_ADMINLTE`][link-adminlte-extension])
     , view path and access to controls in index action.
     
-    AdminLTE theme you can found in `xz1mefx/yii2-adminlte` package.
+    AdminLTE theme you can found in [`xz1mefx/yii2-adminlte` package][link-adminlte-extension].
 
 [ico-version]: https://img.shields.io/packagist/v/xz1mefx/yii2-multilang.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
@@ -126,3 +113,4 @@ The preferred way to install this extension is through [composer](http://getcomp
 [link-downloads]: https://packagist.org/packages/xz1mefx/yii2-multilang
 [link-travis]: https://travis-ci.org/xz1mefx/yii2-multilang
 [link-scrutinizer]: https://scrutinizer-ci.com/g/xz1mefx/yii2-multilang/?branch=master
+[link-adminlte-extension]: https://github.com/xZ1mEFx/yii2-adminlte

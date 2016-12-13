@@ -1,9 +1,9 @@
 <?php
 namespace xz1mefx\multilang\actions\lang;
 
+use xz1mefx\multilang\actions\BaseAction;
 use xz1mefx\multilang\models\Lang;
 use Yii;
-use yii\base\Action;
 use yii\bootstrap\ActiveForm;
 use yii\web\Response;
 
@@ -15,15 +15,8 @@ use yii\web\Response;
  *
  * @package xz1mefx\multilang\actions\lang
  */
-class CreateAction extends Action
+class CreateAction extends BaseAction
 {
-
-    const THEME_BOOTSTRAP = 'bootstrap';
-    const THEME_ADMINLTE = 'adminlte';
-
-    public $theme = self::THEME_BOOTSTRAP;
-    public $view = NULL;
-
     /**
      * @return string|\yii\web\Response
      */

@@ -1,9 +1,9 @@
 <?php
 namespace xz1mefx\multilang\actions\lang;
 
+use xz1mefx\multilang\actions\BaseAction;
 use xz1mefx\multilang\models\search\LangSearch;
 use Yii;
-use yii\base\Action;
 
 /**
  * Class IndexAction
@@ -17,15 +17,8 @@ use yii\base\Action;
  *
  * @package xz1mefx\multilang\actions\lang
  */
-class IndexAction extends Action
+class IndexAction extends BaseAction
 {
-
-    const THEME_BOOTSTRAP = 'bootstrap';
-    const THEME_ADMINLTE = 'adminlte';
-
-    public $theme = self::THEME_BOOTSTRAP;
-    public $view = NULL;
-
     public $canAdd = true;
     public $canUpdate = true;
     public $canDelete = true;
