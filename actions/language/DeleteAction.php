@@ -1,5 +1,5 @@
 <?php
-namespace xz1mefx\multilang\actions\lang;
+namespace xz1mefx\multilang\actions\language;
 
 use xz1mefx\multilang\actions\BaseAction;
 use xz1mefx\multilang\models\Lang;

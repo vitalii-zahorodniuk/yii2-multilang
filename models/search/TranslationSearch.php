@@ -2,23 +2,25 @@
 
 namespace xz1mefx\multilang\models\search;
 
-use xz1mefx\multilang\models\Lang;
+use xz1mefx\multilang\models\SourceMessage;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * LangSearch represents the model behind the search form about `xz1mefx\multilang\models\Lang`.
+ * Class TranslationSearch
+ * @package backend\models\search
  */
-class LangSearch extends Lang
+class TranslationSearch extends SourceMessage
 {
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'default', 'created_at', 'updated_at'], 'integer'],
-            [['url', 'locale', 'name'], 'safe'],
+            [['id'], 'integer'],
+            [['category', 'message'], 'safe'],
         ];
     }
 
@@ -37,9 +39,7 @@ class LangSearch extends Lang
      */
     public function search($params)
     {
-        $query = Lang::find();
-
-        // add conditions that should always apply here
+        $query = SourceMessage::find()->joinWith('messages');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -53,18 +53,14 @@ class LangSearch extends Lang
             return $dataProvider;
         }
 
-        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'default' => $this->default,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'url', $this->url])
-            ->andFilterWhere(['like', 'locale', $this->locale])
-            ->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'category', $this->category])
+            ->andFilterWhere(['like', 'message', $this->message]);
 
         return $dataProvider;
     }
+
 }

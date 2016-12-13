@@ -70,4 +70,25 @@ class SourceMessage extends ActiveRecord
     {
         return $this->hasMany(Message::className(), ['id' => 'id']);
     }
+
+    /**
+     * @param $local string
+     * @return string
+     */
+    public function getTranslationByLocal($local)
+    {
+        $model = Message::findOne(['id' => $this->id, 'language' => $local]);
+        if ($model) {
+            return $model->translation;
+        }
+        return '';
+    }
+
+    /**
+     * @return array
+     */
+    public function getLangListArray()
+    {
+        return Lang::getLangListArray();
+    }
 }

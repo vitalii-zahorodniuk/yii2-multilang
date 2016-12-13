@@ -1,5 +1,5 @@
 <?php
-namespace xz1mefx\multilang\actions\lang;
+namespace xz1mefx\multilang\actions\language;
 
 use xz1mefx\multilang\actions\BaseAction;
 use xz1mefx\multilang\models\search\LangSearch;
@@ -32,7 +32,7 @@ class IndexAction extends BaseAction
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->controller->render(
-            $this->view ?: "@vendor/xz1mefx/yii2-multilang/views/lang/{$this->theme}/index",
+            $this->view ?: "@vendor/xz1mefx/yii2-multilang/views/language/{$this->theme}/index",
             [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
