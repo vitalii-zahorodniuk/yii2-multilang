@@ -4,8 +4,8 @@ use yii\bootstrap\Html;
 /* @var $this yii\web\View */
 /* @var $model xz1mefx\multilang\models\Lang */
 
-$this->title = Yii::t('xz1mefx-multilang', 'Add language');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('xz1mefx-multilang', 'Languages'), 'url' => ['index']];
+$this->title = Yii::t('multilang-tools', 'Add language');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('multilang-tools', 'Languages'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

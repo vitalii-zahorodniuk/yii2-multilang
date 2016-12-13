@@ -48,7 +48,7 @@ class Message extends ActiveRecord
             [['id'], 'integer'],
             [['translation'], 'string'],
             [['language'], 'string', 'max' => 16],
-            [['id', 'language'], 'unique', 'targetAttribute' => ['id', 'language'], 'message' => Yii::t('xz1mefx-multilang', 'The combination of ID and Language has already been taken.')],
+            [['id', 'language'], 'unique', 'targetAttribute' => ['id', 'language'], 'message' => Yii::t('multilang-tools', 'The combination of ID and Language has already been taken.')],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceMessage::className(), 'targetAttribute' => ['id' => 'id']],
         ];
     }
@@ -59,9 +59,9 @@ class Message extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('xz1mefx-multilang', 'ID'),
-            'language' => Yii::t('xz1mefx-multilang', 'Language'),
-            'translation' => Yii::t('xz1mefx-multilang', 'Translation'),
+            'id' => Yii::t('multilang-tools', 'ID'),
+            'language' => Yii::t('multilang-tools', 'Language'),
+            'translation' => Yii::t('multilang-tools', 'Translation'),
         ];
     }
 

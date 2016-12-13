@@ -24,13 +24,13 @@ class DeleteAction extends BaseAction
     public function run($id)
     {
         if (($model = Lang::findOne($id)) === NULL) {
-            throw new NotFoundHttpException(Yii::t('xz1mefx-multilang', 'The requested language does not exist'));
+            throw new NotFoundHttpException(Yii::t('multilang-tools', 'The requested language does not exist'));
         } else {
             if ($model->default != 0) {
-                Yii::$app->session->setFlash('danger', Yii::t('xz1mefx-multilang', 'You can\'t delete default language!'));
+                Yii::$app->session->setFlash('danger', Yii::t('multilang-tools', 'You can\'t delete default language!'));
             } else {
                 $model->delete();
-                Yii::$app->session->setFlash('success', Yii::t('xz1mefx-multilang', 'Language deleted successfully!'));
+                Yii::$app->session->setFlash('success', Yii::t('multilang-tools', 'Language deleted successfully!'));
             }
         }
 

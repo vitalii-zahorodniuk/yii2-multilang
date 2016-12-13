@@ -78,7 +78,7 @@ class Lang extends ActiveRecord
     public function beforeValidate()
     {
         if ($this->default == 0 && isset($this->oldAttributes['default']) && $this->oldAttributes['default'] == 1) {
-            Yii::$app->session->setFlash('danger', Yii::t('xz1mefx-multilang', 'You can only override the default language'));
+            Yii::$app->session->setFlash('danger', Yii::t('multilang-tools', 'You can only override the default language'));
             return false;
         }
 
@@ -91,13 +91,13 @@ class Lang extends ActiveRecord
     public function rules()
     {
         return [
-            [['url', 'local', 'name'], 'required'],
+            [['url', 'locale', 'name'], 'required'],
             [['default', 'created_at', 'updated_at'], 'integer'],
             [['url'], 'string', 'max' => 2],
-            [['local'], 'string', 'max' => 16],
+            [['locale'], 'string', 'max' => 16],
             [['name'], 'string', 'max' => 255],
             [['url'], 'unique'],
-            [['local'], 'unique'],
+            [['locale'], 'unique'],
         ];
     }
 
@@ -145,13 +145,13 @@ class Lang extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('xz1mefx-multilang', 'ID'),
-            'url' => Yii::t('xz1mefx-multilang', 'Url'),
-            'local' => Yii::t('xz1mefx-multilang', 'Local'),
-            'name' => Yii::t('xz1mefx-multilang', 'Name'),
-            'default' => Yii::t('xz1mefx-multilang', 'Default'),
-            'created_at' => Yii::t('xz1mefx-multilang', 'Created At'),
-            'updated_at' => Yii::t('xz1mefx-multilang', 'Updated At'),
+            'id' => Yii::t('multilang-tools', 'ID'),
+            'url' => Yii::t('multilang-tools', 'Url (ISO 639-1)'),
+            'locale' => Yii::t('multilang-tools', 'Locale'),
+            'name' => Yii::t('multilang-tools', 'Name'),
+            'default' => Yii::t('multilang-tools', 'Is Default'),
+            'created_at' => Yii::t('multilang-tools', 'Created At'),
+            'updated_at' => Yii::t('multilang-tools', 'Updated At'),
         ];
     }
 }

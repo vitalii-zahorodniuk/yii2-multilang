@@ -11,7 +11,7 @@ use yii\widgets\Pjax;
 /* @var $canUpdate bool */
 /* @var $canDelete bool */
 
-$this->title = Yii::t('xz1mefx-multilang', 'Languages');
+$this->title = Yii::t('multilang-tools', 'Languages');
 
 $this->params['breadcrumbs'][] = $this->title;
 
@@ -20,10 +20,10 @@ $this->params['title'] = $this->title;
 $this->registerCss(<<<CSS
 @media (max-width: 425px) {
     .grid-view thead th:nth-child(3),
-    .grid-view thead th:nth-child(4),
     .grid-view thead td:nth-child(3),
-    .grid-view thead td:nth-child(4),
     .grid-view tbody td:nth-child(3),
+    .grid-view thead th:nth-child(4),
+    .grid-view thead td:nth-child(4),
     .grid-view tbody td:nth-child(4) {
         display: none;
     }
@@ -47,7 +47,7 @@ CSS
 <div class="box box-primary">
     <div class="box-header">
         <?php if ($canAdd): ?>
-            <?= Html::a(Yii::t('xz1mefx-multilang', 'Add language'), ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(Yii::t('multilang-tools', 'Add language'), ['create'], ['class' => 'btn btn-success']) ?>
         <?php endif; ?>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -75,7 +75,7 @@ CSS
                         },
                     ],
                     'url',
-                    'local',
+                    'locale',
                     [
                         'attribute' => 'default',
                         'filter' => false,

@@ -57,9 +57,9 @@ class SourceMessage extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('xz1mefx-multilang', 'ID'),
-            'category' => Yii::t('xz1mefx-multilang', 'Category'),
-            'message' => Yii::t('xz1mefx-multilang', 'Message'),
+            'id' => Yii::t('multilang-tools', 'ID'),
+            'category' => Yii::t('multilang-tools', 'Category'),
+            'message' => Yii::t('multilang-tools', 'Message'),
         ];
     }
 

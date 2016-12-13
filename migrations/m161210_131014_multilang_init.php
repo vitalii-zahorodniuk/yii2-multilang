@@ -20,7 +20,7 @@ class m161210_131014_multilang_init extends Migration
         $this->createTable('{{%lang}}', [
             'id' => $this->primaryKey(),
             'url' => $this->string(2)->notNull()->unique(),
-            'local' => $this->string(16)->notNull()->unique(),
+            'locale' => $this->string(16)->notNull()->unique(),
             'name' => $this->string()->notNull(),
             'default' => $this->smallInteger(1)->notNull()->defaultValue(0),
 
@@ -31,7 +31,7 @@ class m161210_131014_multilang_init extends Migration
         // Add default languages
         $this->insert('{{%lang}}', [
             'url' => 'ru',
-            'local' => 'ru-RU',
+            'locale' => 'ru-RU',
             'name' => 'Русский',
             'default' => 1,
             'created_at' => time(),
@@ -39,14 +39,14 @@ class m161210_131014_multilang_init extends Migration
         ]);
         $this->insert('{{%lang}}', [
             'url' => 'uk',
-            'local' => 'uk-UA',
+            'locale' => 'uk-UA',
             'name' => 'Українська',
             'created_at' => time(),
             'updated_at' => time(),
         ]);
         $this->insert('{{%lang}}', [
             'url' => 'en',
-            'local' => 'en-US',
+            'locale' => 'en-US',
             'name' => 'English',
             'created_at' => time(),
             'updated_at' => time(),

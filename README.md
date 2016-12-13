@@ -13,8 +13,6 @@ The extension is a package of tools to implement multilanguage in Yii2 project:
 Installation
 ------------
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
-
 1.  The preferred way to install this extension is through [composer](http://getcomposer.org/download/), run:
     ```bash
     php composer.phar require --prefer-dist xz1mefx/yii2-multilang "1.0.0-rc"
@@ -55,9 +53,9 @@ The preferred way to install this extension is through [composer](http://getcomp
     'i18n' => [], // override common config
     ```
 
-6.  Add SeoLangs widget to page `<head></head>` section in layout(s):
+6.  Add HrefLangs widget to page `<head></head>` section in layout(s):
     ```php
-    <?= \xz1mefx\multilang\widgets\SeoLangs::widget() ?>
+    <?= \xz1mefx\multilang\widgets\HrefLangs::widget() ?>
     ```
 
 7.  Add LangController (or another) with next code:

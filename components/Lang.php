@@ -155,7 +155,7 @@ class Lang extends Component
     private function setLang($dDLang)
     {
         $this->_dDLang = $dDLang;
-        Yii::$app->language = $this->_langsList[$dDLang]['local'];
+        Yii::$app->language = $this->_langsList[$dDLang]['locale'];
         Yii::$app->session->set('lang', $dDLang);
         Yii::$app->response->cookies->add(new Cookie([
             'name' => 'lang',

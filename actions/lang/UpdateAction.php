@@ -26,7 +26,7 @@ class UpdateAction extends BaseAction
     public function run($id)
     {
         if (($model = Lang::findOne($id)) === NULL) {
-            throw new NotFoundHttpException(Yii::t('xz1mefx-multilang', 'The requested language does not exist'));
+            throw new NotFoundHttpException(Yii::t('multilang-tools', 'The requested language does not exist'));
         } else {
             if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
                 Yii::$app->response->format = Response::FORMAT_JSON;

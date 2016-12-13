@@ -11,8 +11,34 @@ use yii\widgets\Pjax;
 /* @var $canUpdate bool */
 /* @var $canDelete bool */
 
-$this->title = Yii::t('xz1mefx-multilang', 'Languages');
+$this->title = Yii::t('multilang-tools', 'Languages');
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerCss(<<<CSS
+@media (max-width: 425px) {
+    .grid-view thead th:nth-child(3),
+    .grid-view thead td:nth-child(3),
+    .grid-view tbody td:nth-child(3),
+    .grid-view thead th:nth-child(4),
+    .grid-view thead td:nth-child(4),
+    .grid-view tbody td:nth-child(4) {
+        display: none;
+    }
+}
+
+@media (max-width: 375px) {
+    .grid-view thead th:nth-child(5),
+    .grid-view thead td:nth-child(5),
+    .grid-view tbody td:nth-child(5) {
+        display: none;
+    }
+
+    .default-lang-ico {
+        display: inline-block !important;
+    }
+}
+CSS
+);
 ?>
 
 <div class="lang-index">
@@ -21,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php if ($canAdd): ?>
         <p>
-            <?= Html::a(Yii::t('xz1mefx-multilang', 'Add language'), ['create'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a(Yii::t('multilang-tools', 'Add language'), ['create'], ['class' => 'btn btn-success']) ?>
         </p>
     <?php endif; ?>
 
@@ -34,7 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'name',
             'url',
-            'local',
+            'locale',
             [
                 'attribute' => 'default',
                 'filter' => false,

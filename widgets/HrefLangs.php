@@ -6,10 +6,10 @@ use yii\bootstrap\Widget;
 use yii\helpers\Url;
 
 /**
- * Class SeoLangs
+ * Class HrefLangs
  * @package xz1mefx\multilang\widgets
  */
-class SeoLangs extends Widget
+class HrefLangs extends Widget
 {
     /**
      * @var string
