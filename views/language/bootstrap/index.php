@@ -56,7 +56,11 @@ CSS
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'yii\grid\SerialColumn',
+                'headerOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
+                'contentOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
+            ],
 
             'name',
             'url',
@@ -64,8 +68,8 @@ CSS
             [
                 'attribute' => 'default',
                 'filter' => false,
-                'headerOptions' => ['class' => 'text-center col-lg-1'],
-                'contentOptions' => ['class' => 'text-center col-lg-1'],
+                'headerOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
+                'contentOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
                 'content' => function ($model) {
                     /* @var $model \xz1mefx\multilang\models\Lang */
                     if ($model->default == 1) {
@@ -78,8 +82,8 @@ CSS
             [
                 'class' => ActionColumn::className(),
                 'visible' => $canUpdate || $canDelete,
-                'headerOptions' => ['class' => 'text-center col-lg-1'],
-                'contentOptions' => ['class' => 'text-center col-lg-1'],
+                'headerOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
+                'contentOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
                 'template' => '{update} {delete}',
                 'visibleButtons' => [
                     'update' => $canUpdate,

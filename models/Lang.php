@@ -11,7 +11,7 @@ use yii\helpers\ArrayHelper;
  *
  * @property integer $id
  * @property string $url
- * @property string $local
+ * @property string $locale
  * @property string $name
  * @property integer $default
  * @property integer $created_at
@@ -34,12 +34,37 @@ class Lang extends ActiveRecord
     public static function getLangListArray()
     {
         $cacheKey = [__CLASS__, 'langListArray'];
-        if (Yii::$app->cache->exists($cacheKey)) {
-            return Yii::$app->cache->get($cacheKey);
+        if (Yii::$app->multilangCache->exists($cacheKey)) {
+            return Yii::$app->multilangCache->get($cacheKey);
         }
         $res = ArrayHelper::index(self::find()->asArray()->all(), 'url');
-        Yii::$app->cache->set($cacheKey, $res);
+        Yii::$app->multilangCache->set($cacheKey, $res);
         return $res;
+    }
+
+    /**
+     * Return all locales array
+     * @return array
+     */
+    public static function getAllLocalesArray()
+    {
+        $cacheKey = [__CLASS__, 'allLocalesArray'];
+        if (Yii::$app->multilangCache->exists($cacheKey)) {
+            return Yii::$app->multilangCache->get($cacheKey);
+        }
+        $res = ArrayHelper::getColumn(self::find()->select('locale')->groupBy('locale')->all(), 'locale');
+        Yii::$app->multilangCache->set($cacheKey, $res);
+        return $res;
+    }
+
+    /**
+     * Clear model multilangCache
+     */
+    public static function clearCache()
+    {
+        return Yii::$app->multilangCache->delete([__CLASS__, 'langListArray'])
+        && Yii::$app->multilangCache->delete([__CLASS__, 'allLocalesArray'])
+        && Yii::$app->multilangCache->delete([__CLASS__, 'defaultLang']);
     }
 
     /**
@@ -49,11 +74,11 @@ class Lang extends ActiveRecord
     public static function getDefaultLang()
     {
         $cacheKey = [__CLASS__, 'defaultLang'];
-        if (Yii::$app->cache->exists($cacheKey)) {
-            return Yii::$app->cache->get($cacheKey);
+        if (Yii::$app->multilangCache->exists($cacheKey)) {
+            return Yii::$app->multilangCache->get($cacheKey);
         }
         $res = self::findOne(['default' => 1])->getAttributes();
-        Yii::$app->cache->set($cacheKey, $res);
+        Yii::$app->multilangCache->set($cacheKey, $res);
         return $res;
     }
 
@@ -106,7 +131,7 @@ class Lang extends ActiveRecord
      */
     public function afterSave($insert, $changedAttributes)
     {
-        self::clearCache();
+        Yii::$app->multilangCache->flush();
 
         if (
             $this->default == 1
@@ -120,22 +145,14 @@ class Lang extends ActiveRecord
     }
 
     /**
-     * Clear model cache
-     */
-    private static function clearCache()
-    {
-        Yii::$app->cache->delete([__CLASS__, 'langListArray']);
-        Yii::$app->cache->delete([__CLASS__, 'defaultLang']);
-    }
-
-    /**
      * @inheritdoc
      */
     public function afterDelete()
     {
-        self::clearCache();
-        // TODO: need to clear messages
-        // TODO: need to clear messages cache
+        Message::deleteAll(['language' => $this->locale]);
+
+        Yii::$app->multilangCache->flush();
+
         parent::afterDelete();
     }
 

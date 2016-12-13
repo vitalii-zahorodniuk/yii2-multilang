@@ -2,6 +2,7 @@
 namespace xz1mefx\multilang\i18n;
 
 use Yii;
+use yii\caching\Cache;
 use yii\db\Query;
 use yii\i18n\MissingTranslationEvent;
 
@@ -17,6 +18,19 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
      * Defaults to false, meaning translation is only performed when source and target languages are different.
      */
     public $forceTranslation = true;
+    /**
+     * @var Cache|array|string the cache object or the application component ID of the cache object.
+     * The messages data will be cached using this cache object.
+     * Note, that to enable caching you have to set [[enableCaching]] to `true`, otherwise setting this property has no effect.
+     *
+     * After the DbMessageSource object is created, if you want to change this property, you should only assign
+     * it with a cache object.
+     *
+     * Starting from version 2.0.2, this can also be a configuration array for creating the object.
+     * @see cachingDuration
+     * @see enableCaching
+     */
+    public $cache = 'multilangCache';
 
     private $_messages = [];
 

@@ -71,11 +71,12 @@ class m161210_131014_multilang_init extends Migration
         ], $tableOptions);
 
         $this->createIndex('message_id_language', '{{%message}}', ['id', 'language'], true);
-        $this->addForeignKey('fk_message_source_message', '{{%message}}', 'id', '{{%source_message}}', 'id', 'CASCADE', 'RESTRICT');
+        $this->addForeignKey('fk_message_source_message', '{{%message}}', 'id', '{{%source_message}}', 'id', 'CASCADE', 'CASCADE');
     }
 
     public function down()
     {
+        Yii::$app->multilangCache->flush();
         $this->dropTable('{{%message}}');
         $this->dropTable('{{%source_message}}');
         $this->dropTable('{{%lang}}');

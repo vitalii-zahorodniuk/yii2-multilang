@@ -26,6 +26,10 @@ Installation
 
 3.  Add components to common config file (or change classes of components):
     ```php
+    'multilangCache' => [
+        'class' => \yii\caching\FileCache::className(), // or another
+        'cachePath' => '@vendor/xz1mefx/yii2-multilang/runtime/cache',
+    ],
     'urlManager' => [
         'class' => \xz1mefx\multilang\web\UrlManager::className(),
     ],
@@ -61,10 +65,10 @@ Installation
 
 7.  Add LanguageController (or another) with next code:
     ```php
-    use xz1mefx\multilang\actions\language\CreateAction;
-    use xz1mefx\multilang\actions\language\DeleteAction;
     use xz1mefx\multilang\actions\language\IndexAction;
+    use xz1mefx\multilang\actions\language\CreateAction;
     use xz1mefx\multilang\actions\language\UpdateAction;
+    use xz1mefx\multilang\actions\language\DeleteAction;
     
     ...
     
@@ -99,7 +103,39 @@ Installation
     , where you can change action theme (`IndexAction::THEME_BOOTSTRAP` - *by default* or [`IndexAction::THEME_ADMINLTE`][link-adminlte-extension])
     , view path and access to controls in index action.
     
-    AdminLTE theme you can found in [`xz1mefx/yii2-adminlte` package][link-adminlte-extension].
+    This controller will control system languages.
+
+8.  Add TranslationController (or another) with next code:
+    ```php
+    use xz1mefx\multilang\actions\translation\IndexAction;
+    use xz1mefx\multilang\actions\translation\UpdateAction;
+    
+    ...
+    
+    /**
+     * @inheritdoc
+     */
+    public function actions()
+    {
+        return [
+            'index' => [
+                'class' => IndexAction::className(),
+    //          'theme' => IndexAction::THEME_ADMINLTE,
+    //          'canUpdate' => false,
+            ],
+            'update' => [
+                'class' => UpdateAction::className(),
+    //          'theme' => UpdateAction::THEME_ADMINLTE,
+            ],
+        ];
+    }
+    ```
+    , where you can change action theme (`IndexAction::THEME_BOOTSTRAP` - *by default* or [`IndexAction::THEME_ADMINLTE`][link-adminlte-extension])
+    , view path and access to controls in index action.
+    
+    This controller will control interface translations.
+    
+AdminLTE theme you can found in [`xz1mefx/yii2-adminlte` package][link-adminlte-extension].
 
 [ico-version]: https://img.shields.io/packagist/v/xz1mefx/yii2-multilang.svg
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg

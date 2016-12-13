@@ -7,23 +7,31 @@ use yii\base\Component;
 use yii\helpers\Url;
 use yii\web\Cookie;
 
+/**
+ * Class Lang
+ *
+ * @package xz1mefx\multilang\components
+ */
 class Lang extends Component
 {
 
     /**
      * Language array for DB
+     *
      * @var array
      */
     private $_langsList;
 
     /**
      * Double digit language code
+     *
      * @var string
      */
     private $_dDLang;
 
     /**
      * Default language data array
+     *
      * @var array
      */
     private $_defaultLang;
@@ -50,6 +58,7 @@ class Lang extends Component
     /**
      * Handle language in URL.
      * (only for handle $pathInfo in \yii\web\Request::resolvePathInfo())
+     *
      * @param string $url URL
      * @return string URL
      */
@@ -73,6 +82,7 @@ class Lang extends Component
 
     /**
      * Determines it necessary to work with the language
+     *
      * @return bool
      */
     public function enabled()
@@ -82,6 +92,7 @@ class Lang extends Component
 
     /**
      * Try to get double-digit language code from url
+     *
      * @param string $url URL
      * @return string Double-digit language code
      */
@@ -93,6 +104,7 @@ class Lang extends Component
 
     /**
      * Try to remove URL segment
+     *
      * @param string $url Subject URL
      * @param string $segment Search segment
      * @param string $replacement Replacement string
@@ -110,6 +122,7 @@ class Lang extends Component
 
     /**
      * Check language double-digit code
+     *
      * @param string $dDLang Double-digit language code
      * @return boolean
      */
@@ -123,6 +136,7 @@ class Lang extends Component
 
     /**
      * Try detect double-digit language code
+     *
      * @return string Double-digit language code
      */
     private function tryDetectDDLang()
@@ -150,6 +164,7 @@ class Lang extends Component
 
     /**
      * Set application language
+     *
      * @param string $dDLang Double-digit language code
      */
     private function setLang($dDLang)
@@ -167,6 +182,7 @@ class Lang extends Component
     /**
      * Create URL with language.
      * (only for handle \yii\web\UrlManager::createUrl())
+     *
      * @param $url
      * @return string
      */
@@ -180,6 +196,7 @@ class Lang extends Component
 
     /**
      * Get current URL with language
+     *
      * @param string $dDLang Double-digit language code
      * @param boolean $scheme
      * @return string URL

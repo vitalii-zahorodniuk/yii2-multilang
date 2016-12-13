@@ -17,6 +17,7 @@ use yii\web\Response;
  */
 class CreateAction extends BaseAction
 {
+
     /**
      * @return string|\yii\web\Response
      */
@@ -30,6 +31,7 @@ class CreateAction extends BaseAction
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', Yii::t('multilang-tools', 'Language created successfully!'));
             return $this->controller->redirect(['index']);
         } else {
             return $this->controller->render(

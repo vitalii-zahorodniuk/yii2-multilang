@@ -16,6 +16,7 @@ use yii\web\NotFoundHttpException;
  */
 class DeleteAction extends BaseAction
 {
+
     /**
      * @param $id
      * @return string

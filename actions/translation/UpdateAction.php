@@ -1,8 +1,8 @@
 <?php
-namespace xz1mefx\multilang\actions\language;
+namespace xz1mefx\multilang\actions\translation;
 
 use xz1mefx\multilang\actions\BaseAction;
-use xz1mefx\multilang\models\Lang;
+use xz1mefx\multilang\models\form\TranslationForm;
 use Yii;
 use yii\bootstrap\ActiveForm;
 use yii\web\NotFoundHttpException;
@@ -26,8 +26,8 @@ class UpdateAction extends BaseAction
      */
     public function run($id)
     {
-        if (($model = Lang::findOne($id)) === NULL) {
-            throw new NotFoundHttpException(Yii::t('multilang-tools', 'The requested language does not exist'));
+        if (($model = TranslationForm::findOne($id)) === NULL) {
+            throw new NotFoundHttpException(Yii::t('multilang-tools', 'The requested translation does not exist'));
         } else {
             if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
@@ -35,11 +35,11 @@ class UpdateAction extends BaseAction
             }
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                Yii::$app->session->setFlash('success', Yii::t('multilang-tools', 'Language updated successfully!'));
+                Yii::$app->session->setFlash('success', Yii::t('multilang-tools', 'Translation updated successfully!'));
                 return $this->controller->redirect(['index']);
             }
             return $this->controller->render(
-                $this->view ?: "@vendor/xz1mefx/yii2-multilang/views/language/{$this->theme}/update",
+                $this->view ?: "@vendor/xz1mefx/yii2-multilang/views/translation/{$this->theme}/update",
                 [
                     'model' => $model,
                 ]

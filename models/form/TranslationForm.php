@@ -2,6 +2,7 @@
 
 namespace xz1mefx\multilang\models\form;
 
+use xz1mefx\multilang\models\Lang;
 use xz1mefx\multilang\models\Message;
 use xz1mefx\multilang\models\SourceMessage;
 use Yii;
@@ -29,20 +30,9 @@ class TranslationForm extends SourceMessage
         parent::afterFind();
 
         // Init langs
-        foreach ($this->getLangListArray() as $key => $lang) {
+        foreach (Lang::getLangListArray() as $key => $lang) {
             $this->langs[$key] = $this->getTranslationByLocal($lang['locale']);
         }
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-        // Clear app cache
-        // TODO: Try to clear only needed cache
-        Yii::$app->cache->flush();
     }
 
     /**
@@ -61,7 +51,7 @@ class TranslationForm extends SourceMessage
     public function attributeLabels()
     {
         $attributeLabels = parent::attributeLabels();
-        $attributeLabels['langs'] = Yii::t('backend_translation', 'Language');
+        $attributeLabels['langs'] = Yii::t('multilang-tools', 'Language');
         return $attributeLabels;
     }
 
@@ -70,7 +60,7 @@ class TranslationForm extends SourceMessage
      */
     function save($runValidation = true, $attributeNames = NULL)
     {
-        foreach ($this->getLangListArray() as $key => $value) {
+        foreach (Lang::getLangListArray() as $key => $value) {
             $message = Message::findOne(['id' => $this->id, 'language' => $value['locale']]);
             if (!isset($message)) {
                 $message = new Message();

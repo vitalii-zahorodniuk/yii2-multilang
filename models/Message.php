@@ -27,6 +27,14 @@ class Message extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public static function primaryKey()
+    {
+        return ['id', 'language'];
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function behaviors()
     {
         return [
@@ -45,12 +53,30 @@ class Message extends ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'created_at', 'updated_at'], 'integer'],
             [['translation'], 'string'],
             [['language'], 'string', 'max' => 16],
             [['id', 'language'], 'unique', 'targetAttribute' => ['id', 'language'], 'message' => Yii::t('multilang-tools', 'The combination of ID and Language has already been taken.')],
             [['id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceMessage::className(), 'targetAttribute' => ['id' => 'id']],
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        Yii::$app->multilangCache->flush();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function afterDelete()
+    {
+        Yii::$app->multilangCache->flush();
+        parent::afterDelete();
     }
 
     /**
@@ -65,11 +91,4 @@ class Message extends ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getId0()
-    {
-        return $this->hasOne(SourceMessage::className(), ['id' => 'id']);
-    }
 }

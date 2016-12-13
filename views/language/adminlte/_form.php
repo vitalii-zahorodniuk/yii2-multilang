@@ -1,10 +1,10 @@
 <?php
-use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Html;
+use xz1mefx\adminlte\helpers\Html;
+use xz1mefx\adminlte\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model xz1mefx\multilang\models\Lang */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $this \yii\web\View */
+/* @var $model \xz1mefx\multilang\models\Lang */
+/* @var $form ActiveForm */
 ?>
 
 <div class="box box-primary">
