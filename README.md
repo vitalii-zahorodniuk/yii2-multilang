@@ -7,11 +7,7 @@ Multilanguage tools package for yii2
 
 The extension is a package of tools to implement multilanguage in Yii2 project:
 - Automatically redirects the user to the URL selected (automatically or manually) language and remembers the user selected language
-<<<<<<< HEAD
 - Automatically collect all new translates into DB
-=======
-- Automatically collect into DB all new translates
->>>>>>> 70618e99b2fd31244e8cc6631c4aa031ad505054
 - Has a widget to set a correct hreflang attributes
 - Provides a CRUD actions for edit the list of languages and the interface translations
 
