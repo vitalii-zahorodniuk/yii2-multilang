@@ -1,5 +1,5 @@
 <?php
-namespace xz1mefx\multilang\actions\lang;
+namespace xz1mefx\multilang\actions\language;
 
 use xz1mefx\multilang\actions\BaseAction;
 use xz1mefx\multilang\models\Lang;
@@ -37,7 +37,7 @@ class UpdateAction extends BaseAction
                 return $this->controller->redirect(['index']);
             } else {
                 return $this->controller->render(
-                    $this->view ?: "@vendor/xz1mefx/yii2-multilang/views/lang/{$this->theme}/update",
+                    $this->view ?: "@vendor/xz1mefx/yii2-multilang/views/language/{$this->theme}/update",
                     [
                         'model' => $model,
                     ]
