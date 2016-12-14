@@ -56,6 +56,15 @@ class Lang extends Component
     }
 
     /**
+     * Get double digit language
+     * @return string
+     */
+    public function getDDLang()
+    {
+        return $this->_dDLang;
+    }
+
+    /**
      * Handle language in URL.
      * (only for handle $pathInfo in \yii\web\Request::resolvePathInfo())
      *
@@ -98,7 +107,13 @@ class Lang extends Component
      */
     private function tryGetUrlLang($url)
     {
-        $dDLang = explode('/', trim($this->removeUrlSegment($url, Url::home()), '/'))[0];
+        $dDLang = explode(
+            '/',
+            trim(
+                $this->removeUrlSegment($url, Url::home()), // remove url home ()
+                '/'
+            )
+        )[0];
         return $this->checkDDLang($dDLang) ? $dDLang : NULL;
     }
 
@@ -117,7 +132,11 @@ class Lang extends Component
             return $url;
         }
         preg_match('/^([^?]+?)(\?.+?)?$/', $url, $matches); // get url and get apart
-        return preg_replace('/\/?' . $preparedSegment . '\/?/i', $replacement, (isset($matches[1]) ? $matches[1] : '')) . (isset($matches[2]) ? $matches[2] : '');
+        return preg_replace(
+            '/\/?' . $preparedSegment . '\/?/i',
+            $replacement,
+            (isset($matches[1]) ? $matches[1] : '')
+        ) . (isset($matches[2]) ? $matches[2] : '');
     }
 
     /**
@@ -203,7 +222,9 @@ class Lang extends Component
      */
     public function getCurrentUrlWithLang($dDLang, $scheme = false)
     {
-        return Url::home($scheme) . $dDLang . $this->removeUrlSegment(Url::to(), $this->_dDLang);
+        $urlToWithoutBase = $this->removeUrlSegment(Url::to(), Url::base());
+        $urlToWithoutCurrentLanguage = $this->removeUrlSegment($urlToWithoutBase, $this->_dDLang);
+        return Url::home($scheme) . $dDLang . $urlToWithoutCurrentLanguage;
     }
 
 }

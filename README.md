@@ -135,6 +135,11 @@ Installation
     ```
     , where you can change action theme (`THEME_BOOTSTRAP` - *by default* or [`THEME_ADMINLTE`][link-adminlte-extension])
     , view path and access to controls in index action.
+
+1.  *(not necessary)* Add language selector widget into `header ul.nav`:
+    ```php
+    <?= \xz1mefx\multilang\widgets\adminlte\HeaderDropDownSelector::widget() ?>
+    ```
     
     This controller will control interface translations.
     
