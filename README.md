@@ -10,6 +10,7 @@ The extension is a package of tools to implement multilanguage in Yii2 project:
 - Automatically collect all new translates into DB
 - Has a widget to set a correct hreflang attributes
 - Provides a CRUD actions for edit the list of languages and the interface translations
+- Has a widget to create language selector (for adminlte theme)
 
 Installation
 ------------
@@ -47,7 +48,7 @@ Installation
     ],
     ```
 
-1.  [*not necessary*] If you use [`iiifx-production/yii2-autocomplete-helper`][link-adminlte-extension] you need to run:
+1.  [*not necessary*] If you use [`iiifx-production/yii2-autocomplete-helper`][link-autocomplete-extension] you need to run:
     ```bash
     composer autocomplete
     ```
@@ -150,5 +151,5 @@ AdminLTE theme you can found in [`xz1mefx/yii2-adminlte` package][link-adminlte-
 [ico-downloads]: https://img.shields.io/packagist/dt/xz1mefx/yii2-multilang.svg
 
 [link-packagist]: https://packagist.org/packages/xz1mefx/yii2-multilang
-[autocomplete-helper-extension]: https://github.com/xZ1mEFx/yii2-adminlte
-[link-adminlte-extension]: https://github.com/iiifx-production/yii2-autocomplete-helper
+[link-adminlte-extension]: https://github.com/xZ1mEFx/yii2-adminlte
+[link-autocomplete-extension]: https://github.com/iiifx-production/yii2-autocomplete-helper
