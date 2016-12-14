@@ -63,10 +63,11 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
             ]);
             $this->trigger(self::EVENT_MISSING_TRANSLATION, $event);
         }
-        $needUpdateCache = false;
-        // create source message in DB if need
-        $sourceMsgId = $this->getSourceMessageId($category, $message);
-        if (!isset($this->_messages[$key][$message])) {
+        // if message is not exist
+        if (!array_key_exists($message, $this->_messages[$key])) {
+            // try to get source message id from db
+            $sourceMsgId = $this->getSourceMessageId($category, $message);
+            // if source message id was not found -> create new source message an get it id
             if ($sourceMsgId == 0) {
                 Yii::$app->db->createCommand()->insert($this->sourceMessageTable, [
                     'category' => $category,
@@ -74,12 +75,7 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
                 ])->execute();
                 $sourceMsgId = Yii::$app->db->getLastInsertID();
             }
-            // update messages array
-            $this->_messages[$key][$message] = NULL;
-            $needUpdateCache = true;
-        }
-        // create message in DB if need
-        if ($this->_messages[$key][$message] === NULL || $this->_messages[$key][$message] !== '') {
+            // insert new source message into db
             Yii::$app->db->createCommand()->insert($this->messageTable, [
                 'id' => $sourceMsgId,
                 'language' => $language,
@@ -87,15 +83,14 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
             ])->execute();
             // update messages array
             $this->_messages[$key][$message] = '';
-            $needUpdateCache = true;
-        }
-        // rewrite cache if need
-        if ($needUpdateCache && $this->enableCaching) {
-            $this->cache->set([
-                __CLASS__,
-                $category,
-                $language,
-            ], $this->_messages[$key], $this->cachingDuration);
+            // rewrite cache if need
+            if ($this->enableCaching) {
+                $this->cache->set([
+                    __CLASS__,
+                    $category,
+                    $language,
+                ], $this->_messages[$key], $this->cachingDuration);
+            }
         }
 
         return false;
@@ -124,7 +119,6 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
                 $messages = $this->loadMessagesFromDb($category, $language);
                 $this->cache->set($key, $messages, $this->cachingDuration);
             }
-
             return $messages;
         } else {
             return $this->loadMessagesFromDb($category, $language);

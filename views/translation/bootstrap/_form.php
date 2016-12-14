@@ -15,7 +15,7 @@ use yii\bootstrap\Html;
     <div class="well"><?= $model->category ?></div>
 
     <strong><?= $model->getAttributeLabel('message') ?>:</strong>
-    <div class="well"><?= $model->message ?></div>
+    <div class="well"><?= Yii::$app->formatter->asNtext($model->message) ?></div>
 
     <hr>
 

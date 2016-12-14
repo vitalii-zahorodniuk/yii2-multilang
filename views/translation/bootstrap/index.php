@@ -35,13 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'message',
+                'format' => 'text',
             ],
             [
                 'label' => Yii::t('multilang-tools', 'Translation ({language})', ['language' => Yii::$app->language]),
                 'attribute' => 'translate',
                 'content' => function ($model) {
                     /* @var $model \xz1mefx\multilang\models\SourceMessage */
-                    return $model->getTranslationByLocal(Yii::$app->language);
+                    return Yii::$app->formatter->asNtext($model->getTranslationByLocal(Yii::$app->language));
                 },
             ],
 

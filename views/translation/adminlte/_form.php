@@ -16,7 +16,7 @@ use xz1mefx\adminlte\widgets\ActiveForm;
             <div class="well"><?= $model->category ?></div>
 
             <strong><?= $model->getAttributeLabel('message') ?>:</strong>
-            <div class="well"><?= $model->message ?></div>
+            <div class="well"><?= Yii::$app->formatter->asNtext($model->message) ?></div>
 
             <hr>
 
