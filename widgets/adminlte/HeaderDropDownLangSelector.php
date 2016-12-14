@@ -5,10 +5,10 @@ use Yii;
 use yii\bootstrap\Widget;
 
 /**
- * Class HeaderDropDownSelector
+ * Class HeaderDropDownLangSelector
  * @package xz1mefx\multilang\widgets
  */
-class HeaderDropDownSelector extends Widget
+class HeaderDropDownLangSelector extends Widget
 {
     /**
      * @var string

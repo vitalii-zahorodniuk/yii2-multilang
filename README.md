@@ -141,7 +141,7 @@ Installation
 
 1.  [*not necessary, only for adminlte theme*] Add language selector widget into `header ul.nav`:
     ```php
-    <?= \xz1mefx\multilang\widgets\adminlte\HeaderDropDownSelector::widget() ?>
+    <?= \xz1mefx\multilang\widgets\adminlte\HeaderDropDownLangSelector::widget() ?>
     ```
     
 AdminLTE theme you can found in [`xz1mefx/yii2-adminlte` package][link-adminlte-extension].
