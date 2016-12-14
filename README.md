@@ -47,7 +47,7 @@ Installation
     ],
     ```
 
-1.  *(not necessary)* If you use [`iiifx-production/yii2-autocomplete-helper`][link-adminlte-extension] you need to run:
+1.  [*not necessary*] If you use [`iiifx-production/yii2-autocomplete-helper`][link-adminlte-extension] you need to run:
     ```bash
     composer autocomplete
     ```
@@ -135,13 +135,13 @@ Installation
     ```
     , where you can change action theme (`THEME_BOOTSTRAP` - *by default* or [`THEME_ADMINLTE`][link-adminlte-extension])
     , view path and access to controls in index action.
+    
+    This controller will control interface translations.
 
-1.  *(not necessary)* Add language selector widget into `header ul.nav`:
+1.  [*not necessary, only for adminlte theme*] Add language selector widget into `header ul.nav`:
     ```php
     <?= \xz1mefx\multilang\widgets\adminlte\HeaderDropDownSelector::widget() ?>
     ```
-    
-    This controller will control interface translations.
     
 AdminLTE theme you can found in [`xz1mefx/yii2-adminlte` package][link-adminlte-extension].
 
