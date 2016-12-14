@@ -16,7 +16,7 @@ Installation
 
 1.  The preferred way to install this extension is through [composer](http://getcomposer.org/download/), run:
     ```bash
-    php composer.phar require --prefer-dist xz1mefx/yii2-multilang "1.0.*"
+    php composer.phar require --prefer-dist xz1mefx/yii2-multilang "1.1.*"
     ```
 
 1.  Execute migration:
