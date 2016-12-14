@@ -19,17 +19,20 @@ Installation
     php composer.phar require --prefer-dist xz1mefx/yii2-multilang "1.0.*"
     ```
 
-2.  Execute migration:
+1.  Execute migration:
     ```bash
     php yii migrate --migrationPath=@vendor/xz1mefx/yii2-multilang/migrations --interactive=0
     ```
 
-3.  Add components to common config file (or change classes of components):
+1.  Add new multilangCache component to common config file:
     ```php
     'multilangCache' => [
-        'class' => \yii\caching\FileCache::className(), // or another
-        'cachePath' => '@vendor/xz1mefx/yii2-multilang/runtime/cache',
+        'class' => \xz1mefx\multilang\caching\MultilangCache::className(),
     ],
+    ```
+
+1.  Override components in common config file:
+    ```php
     'urlManager' => [
         'class' => \xz1mefx\multilang\web\UrlManager::className(),
     ],
@@ -44,12 +47,12 @@ Installation
     ],
     ```
 
-4.  If you use `iiifx-production/yii2-autocomplete-helper` you need to run:
+1.  *(not necessary)* If you use [`iiifx-production/yii2-autocomplete-helper`][link-adminlte-extension] you need to run:
     ```bash
     composer autocomplete
     ```
 
-5.  Override components in console config file:
+1.  Override some components in console config file:
     ```php
     'request' => [ // override common config
         'class' => 'yii\console\Request',
@@ -58,12 +61,12 @@ Installation
     'i18n' => [], // override common config
     ```
 
-6.  Add HrefLangs widget to page `<head></head>` section in layout(s):
+1.  Add HrefLangs widget to page `<head></head>` section in layout(s):
     ```php
     <?= \xz1mefx\multilang\widgets\HrefLangs::widget() ?>
     ```
 
-7.  Add LanguageController (or another) with next code:
+1.  Add LanguageController (or another) with next code:
     ```php
     use xz1mefx\multilang\actions\language\IndexAction;
     use xz1mefx\multilang\actions\language\CreateAction;
@@ -105,7 +108,7 @@ Installation
     
     This controller will control system languages.
 
-8.  Add TranslationController (or another) with next code:
+1.  Add TranslationController (or another) with next code:
     ```php
     use xz1mefx\multilang\actions\translation\IndexAction;
     use xz1mefx\multilang\actions\translation\UpdateAction;
@@ -148,4 +151,5 @@ AdminLTE theme you can found in [`xz1mefx/yii2-adminlte` package][link-adminlte-
 [link-downloads]: https://packagist.org/packages/xz1mefx/yii2-multilang
 [link-travis]: https://travis-ci.org/xz1mefx/yii2-multilang
 [link-scrutinizer]: https://scrutinizer-ci.com/g/xz1mefx/yii2-multilang/?branch=master
-[link-adminlte-extension]: https://github.com/xZ1mEFx/yii2-adminlte
+[autocomplete-helper-extension]: https://github.com/xZ1mEFx/yii2-adminlte
+[link-adminlte-extension]: https://github.com/iiifx-production/yii2-autocomplete-helper
