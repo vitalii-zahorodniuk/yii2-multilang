@@ -103,7 +103,7 @@ Installation
         ];
     }
     ```
-    , where you can change action theme (`IndexAction::THEME_BOOTSTRAP` - *by default* or [`IndexAction::THEME_ADMINLTE`][link-adminlte-extension])
+    , where you can change action theme (`THEME_BOOTSTRAP` - *by default* or [`THEME_ADMINLTE`][link-adminlte-extension])
     , view path and access to controls in index action.
     
     This controller will control system languages.
@@ -133,7 +133,7 @@ Installation
         ];
     }
     ```
-    , where you can change action theme (`IndexAction::THEME_BOOTSTRAP` - *by default* or [`IndexAction::THEME_ADMINLTE`][link-adminlte-extension])
+    , where you can change action theme (`THEME_BOOTSTRAP` - *by default* or [`THEME_ADMINLTE`][link-adminlte-extension])
     , view path and access to controls in index action.
     
     This controller will control interface translations.
