@@ -17,19 +17,11 @@
     }
   ],
   "require": {
-    "yiisoft/yii2": "~2.0"
+    "yiisoft/yii2": "*"
   },
   "autoload": {
     "psr-4": {
       "xz1mefx\\multilang\\": ""
     }
-  },
-  "scripts": {
-    "post-package-install": [
-      "xz1mefx\\multilang\\MultilangMigration::install"
-    ],
-    "post-package-uninstall": [
-      "xz1mefx\\multilang\\MultilangMigration::uninstall"
-    ]
   }
 }

@@ -1,25 +1,8 @@
 <?php
-namespace xz1mefx\multilang;
-
-use Yii;
 use yii\db\Migration;
 
-class MultilangMigration extends Migration
+class m161210_131014_multilang_init extends Migration
 {
-    const TABLE_LANG = '{{%ml_lang}}';
-    const TABLE_SOURCE_MESSAGE = '{{%ml_source_message}}';
-    const TABLE_MESSAGE = '{{%ml_message}}';
-
-    public static function install()
-    {
-        (new self)->up();
-    }
-
-    public static function uninstall()
-    {
-        (new self)->up();
-    }
-
     public function up()
     {
         $tableOptions = NULL;
@@ -34,37 +17,33 @@ class MultilangMigration extends Migration
         // -------------------------------------------
 
         // Lang table
-        if ($this->db->getTableSchema(self::TABLE_LANG, true) === NULL) {
-            $this->createTable(self::TABLE_LANG, [
-                'id' => $this->primaryKey(),
-                'url' => $this->string(2)->notNull()->unique(),
-                'locale' => $this->string(16)->notNull()->unique(),
-                'name' => $this->string()->notNull(),
-                'default' => $this->smallInteger(1)->notNull()->defaultValue(0),
+        $this->createTable('{{%lang}}', [
+            'id' => $this->primaryKey(),
+            'url' => $this->string(2)->notNull()->unique(),
+            'locale' => $this->string(16)->notNull()->unique(),
+            'name' => $this->string()->notNull(),
+            'default' => $this->smallInteger(1)->notNull()->defaultValue(0),
 
-                'created_at' => $this->integer()->notNull(),
-                'updated_at' => $this->integer()->notNull(),
-            ], $tableOptions);
-        } else {
-            $this->truncateTable(self::TABLE_LANG);
-        }
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
+        ], $tableOptions);
 
         // Add default languages
-        $this->insert(self::TABLE_LANG, [
+        $this->insert('{{%lang}}', [
             'url' => 'ru',
             'locale' => 'ru-RU',
             'name' => 'Русский',
             'created_at' => time(),
             'updated_at' => time(),
         ]);
-        $this->insert(self::TABLE_LANG, [
+        $this->insert('{{%lang}}', [
             'url' => 'uk',
             'locale' => 'uk-UA',
             'name' => 'Українська',
             'created_at' => time(),
             'updated_at' => time(),
         ]);
-        $this->insert(self::TABLE_LANG, [
+        $this->insert('{{%lang}}', [
             'url' => 'en',
             'locale' => 'en-US',
             'name' => 'English',
@@ -74,42 +53,33 @@ class MultilangMigration extends Migration
         ]);
 
         // Add translate tables
-        if ($this->db->getTableSchema(self::TABLE_SOURCE_MESSAGE, true) === NULL) {
-            $this->createTable(self::TABLE_SOURCE_MESSAGE, [
-                'id' => $this->primaryKey(),
-                'category' => $this->string(32),
-                'message' => $this->text()->notNull(),
+        $this->createTable('{{%source_message}}', [
+            'id' => $this->primaryKey(),
+            'category' => $this->string(32),
+            'message' => $this->text()->notNull(),
 
-                'created_at' => $this->integer()->notNull(),
-                'updated_at' => $this->integer()->notNull(),
-            ], $tableOptions);
-        } else {
-            $this->truncateTable(self::TABLE_SOURCE_MESSAGE);
-        }
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
+        ], $tableOptions);
+        $this->createTable('{{%message}}', [
+            'id' => $this->integer(),
+            'language' => $this->string(16),
+            'translation' => $this->text(),
 
-        if ($this->db->getTableSchema(self::TABLE_MESSAGE, true) === NULL) {
-            $this->createTable(self::TABLE_MESSAGE, [
-                'id' => $this->integer(),
-                'language' => $this->string(16),
-                'translation' => $this->text(),
+            'created_at' => $this->integer()->notNull(),
+            'updated_at' => $this->integer()->notNull(),
+        ], $tableOptions);
 
-                'created_at' => $this->integer()->notNull(),
-                'updated_at' => $this->integer()->notNull(),
-            ], $tableOptions);
-            $this->createIndex('message_id_language', self::TABLE_MESSAGE, ['id', 'language'], true);
-            $this->addForeignKey('fk_message_source_message', self::TABLE_MESSAGE, 'id', self::TABLE_SOURCE_MESSAGE, 'id', 'CASCADE', 'CASCADE');
-        } else {
-            $this->truncateTable(self::TABLE_SOURCE_MESSAGE);
-        }
+        $this->createIndex('message_id_language', '{{%message}}', ['id', 'language'], true);
+        $this->addForeignKey('fk_message_source_message', '{{%message}}', 'id', '{{%source_message}}', 'id', 'CASCADE', 'CASCADE');
 
 
         // -------------------------------------------
         // Insert default source messages
         // -------------------------------------------
 
-        $table = self::TABLE_SOURCE_MESSAGE;
         $this->execute(<<<SQL
-INSERT INTO {$table} (`id`, `category`, `message`, `created_at`, `updated_at`) VALUES
+INSERT INTO `source_message` (`id`, `category`, `message`, `created_at`, `updated_at`) VALUES
     (1, 'yii', 'Home', 0, 0),
     (2, 'yii', 'No results found.', 0, 0),
     (3, 'yii', 'Showing <b>{begin, number}-{end, number}</b> of <b>{totalCount, number}</b> {totalCount, plural, one{item} other{items}}.', 0, 0),
@@ -263,9 +233,8 @@ SQL
         // Insert default messages
         // -------------------------------------------
 
-        $table = self::TABLE_MESSAGE;
         $this->execute(<<<SQL
-INSERT INTO {$table} (`id`, `language`, `translation`, `created_at`, `updated_at`) VALUES
+INSERT INTO `message` (`id`, `language`, `translation`, `created_at`, `updated_at`) VALUES
     (1, 'en-US', 'Home', 0, 0),
     (1, 'ru-RU', 'Главная', 0, 0),
     (1, 'uk-UA', 'Головна', 0, 0),
@@ -708,14 +677,8 @@ SQL
     public function down()
     {
         Yii::$app->multilangCache->flush();
-        if ($this->db->getTableSchema(self::TABLE_MESSAGE, true) !== NULL) {
-            $this->dropTable(self::TABLE_MESSAGE);
-        }
-        if ($this->db->getTableSchema(self::TABLE_SOURCE_MESSAGE, true) !== NULL) {
-            $this->dropTable(self::TABLE_SOURCE_MESSAGE);
-        }
-        if ($this->db->getTableSchema(self::TABLE_LANG, true) !== NULL) {
-            $this->dropTable(self::TABLE_LANG);
-        }
+        $this->dropTable('{{%message}}');
+        $this->dropTable('{{%source_message}}');
+        $this->dropTable('{{%lang}}');
     }
 }
