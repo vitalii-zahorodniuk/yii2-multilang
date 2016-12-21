@@ -9,10 +9,10 @@ use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "{{%source_message}}".
  *
- * @property integer $id
- * @property string $category
- * @property string $message
- * @property array $langListArray
+ * @property integer   $id
+ * @property string    $category
+ * @property string    $message
+ * @property array     $langListArray
  *
  * @property Message[] $messages
  */
@@ -127,6 +127,7 @@ class SourceMessage extends ActiveRecord
 
     /**
      * @param $local string
+     *
      * @return string
      */
     public function getTranslationByLocal($local)

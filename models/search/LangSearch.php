@@ -33,6 +33,7 @@ class LangSearch extends Lang
 
     /**
      * @param $params
+     *
      * @return ActiveDataProvider
      */
     public function search($params)

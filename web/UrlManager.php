@@ -31,7 +31,9 @@ class UrlManager extends \yii\web\UrlManager
      * as an absolute route.
      *
      * @param string|array $params use a string to represent a route (e.g. `site/index`),
-     * or an array to represent a route with query parameters (e.g. `['site/index', 'param1' => 'value1']`).
+     *                             or an array to represent a route with query parameters (e.g. `['site/index',
+     *                             'param1' => 'value1']`).
+     *
      * @return string the created URL
      */
     public function createUrl($params)

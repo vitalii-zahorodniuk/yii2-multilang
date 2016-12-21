@@ -23,9 +23,9 @@ class HrefLangs extends Widget
     {
         $content = '';
         if (Yii::$app->lang->enabled()) {
-            $content .= strtr($this->alternateLinkTemplate, ['{hreflang}' => 'x-default', '{href}' => Url::home(true)]);
+            $content .= strtr($this->alternateLinkTemplate, ['{hreflang}' => 'x-default', '{href}' => Url::home(TRUE)]);
             foreach (Yii::$app->lang->langList as $lang) {
-                $content .= strtr($this->alternateLinkTemplate, ['{hreflang}' => $lang['url'], '{href}' => Url::home(true) . $lang['url']]);
+                $content .= strtr($this->alternateLinkTemplate, ['{hreflang}' => $lang['url'], '{href}' => Url::home(TRUE) . $lang['url']]);
             }
         }
         return $content;

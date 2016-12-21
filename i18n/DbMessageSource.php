@@ -13,18 +13,19 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
     /**
      * @var boolean whether to enable caching translated messages
      */
-    public $enableCaching = true;
+    public $enableCaching = TRUE;
 
     /**
      * @var boolean whether to force message translation when the source and target languages are the same.
      * Defaults to false, meaning translation is only performed when source and target languages are different.
      */
-    public $forceTranslation = true;
+    public $forceTranslation = TRUE;
 
     /**
      * @var Cache|array|string the cache object or the application component ID of the cache object.
      * The messages data will be cached using this cache object.
-     * Note, that to enable caching you have to set [[enableCaching]] to `true`, otherwise setting this property has no effect.
+     * Note, that to enable caching you have to set [[enableCaching]] to `true`, otherwise setting this property has no
+     * effect.
      *
      * After the DbMessageSource object is created, if you want to change this property, you should only assign
      * it with a cache object.
@@ -51,9 +52,11 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
      * Translates the specified message.
      * If the message is not found, a [[EVENT_MISSING_TRANSLATION|missingTranslation]] event will be triggered.
      * If no translation for current message this method will save empty record in db & return `false`.
+     *
      * @param string $category the category that the message belongs to.
-     * @param string $message the message to be translated.
+     * @param string $message  the message to be translated.
      * @param string $language the target language.
+     *
      * @return string|boolean the translated message or false if translation wasn't found.
      */
     protected function translateMessage($category, $message, $language)
@@ -106,7 +109,7 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
             }
         }
 
-        return false;
+        return FALSE;
     }
 
     /**
@@ -116,6 +119,7 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
      *
      * @param string $category the message category
      * @param string $language the target language
+     *
      * @return array the loaded messages. The keys are original messages, and the values
      * are translated messages.
      */
@@ -128,7 +132,7 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
                 $language,
             ];
             $messages = $this->cache->get($key);
-            if ($messages === false) {
+            if ($messages === FALSE) {
                 $messages = $this->loadMessagesFromDb($category, $language);
                 $this->cache->set($key, $messages, $this->cachingDuration);
             }
@@ -140,8 +144,10 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
 
     /**
      * Try to get source message id from db
+     *
      * @param string $category the category that the message belongs to
-     * @param string $message the message to be translated
+     * @param string $message  the message to be translated
+     *
      * @return integer source message id or 0 if record not found
      */
     private function getSourceMessageId($category, $message)

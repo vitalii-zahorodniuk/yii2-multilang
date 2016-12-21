@@ -9,16 +9,16 @@ use Yii;
  * Class IndexAction
  *
  * @property string $theme it can be IndexAction::THEME_BOOTSTRAP or IndexAction::THEME_ADMINLTE
- * @property string $view the view name (if need to override)
+ * @property string $view  the view name (if need to override)
  *
- * @property bool $canUpdate
+ * @property bool   $canUpdate
  *
  * @package xz1mefx\multilang\actions\lang
  */
 class IndexAction extends BaseAction
 {
 
-    public $canUpdate = true;
+    public $canUpdate = TRUE;
 
     /**
      * @return string

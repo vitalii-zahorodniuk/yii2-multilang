@@ -9,13 +9,13 @@ use yii\bootstrap\Html;
 
 <div class="lang-form">
 
-    <?php $form = ActiveForm::begin(['enableAjaxValidation' => true, 'validateOnType' => true]); ?>
+    <?php $form = ActiveForm::begin(['enableAjaxValidation' => TRUE, 'validateOnType' => TRUE]); ?>
 
-    <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'url')->textInput(['maxlength' => TRUE]) ?>
 
-    <?= $form->field($model, 'locale')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'locale')->textInput(['maxlength' => TRUE]) ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => TRUE]) ?>
 
     <?php if (!$model['default']): ?>
         <?= $form->field($model, 'default')->checkbox() ?>

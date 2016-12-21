@@ -10,9 +10,9 @@ use yii\helpers\ArrayHelper;
  * This is the model class for table "{{%lang}}".
  *
  * @property integer $id
- * @property string $url
- * @property string $locale
- * @property string $name
+ * @property string  $url
+ * @property string  $locale
+ * @property string  $name
  * @property integer $default
  * @property integer $created_at
  * @property integer $updated_at
@@ -106,7 +106,7 @@ class Lang extends ActiveRecord
     {
         if ($this->default == 0 && isset($this->oldAttributes['default']) && $this->oldAttributes['default'] == 1) {
             Yii::$app->session->setFlash('danger', Yii::t('multilang-tools', 'You can only override the default language'));
-            return false;
+            return FALSE;
         }
 
         return parent::beforeValidate();

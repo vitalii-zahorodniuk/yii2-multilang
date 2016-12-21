@@ -10,7 +10,7 @@ use xz1mefx\adminlte\widgets\ActiveForm;
 <div class="box box-primary">
     <div class="box-body">
         <div class="box-body-overflow">
-            <?php $form = ActiveForm::begin(['enableAjaxValidation' => true, 'validateOnType' => true]); ?>
+            <?php $form = ActiveForm::begin(['enableAjaxValidation' => TRUE, 'validateOnType' => TRUE]); ?>
 
             <strong><?= $model->getAttributeLabel('category') ?>:</strong>
             <div class="well"><?= $model->category ?></div>

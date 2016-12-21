@@ -11,7 +11,7 @@ use yii\web\Response;
  * Class CreateAction
  *
  * @property string $theme it can be IndexAction::THEME_BOOTSTRAP or IndexAction::THEME_ADMINLTE
- * @property string $view the view name (if need to override)
+ * @property string $view  the view name (if need to override)
  *
  * @package xz1mefx\multilang\actions\lang
  */

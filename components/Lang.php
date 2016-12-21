@@ -69,6 +69,7 @@ class Lang extends Component
      * (only for handle $pathInfo in \yii\web\Request::resolvePathInfo())
      *
      * @param string $url URL
+     *
      * @return string URL
      */
     public function requestHandleLang($url)
@@ -78,7 +79,7 @@ class Lang extends Component
 
             if (empty($dDLang)) {
                 $dDLang = $this->tryDetectDDLang();
-                Yii::$app->getResponse()->redirect(Url::home(true) . $dDLang . $this->removeUrlSegment($url, Url::home()), 302);
+                Yii::$app->getResponse()->redirect(Url::home(TRUE) . $dDLang . $this->removeUrlSegment($url, Url::home()), 302);
             }
 
             $this->setLang($dDLang);
@@ -103,6 +104,7 @@ class Lang extends Component
      * Try to get double-digit language code from url
      *
      * @param string $url URL
+     *
      * @return string Double-digit language code
      */
     private function tryGetUrlLang($url)
@@ -120,9 +122,10 @@ class Lang extends Component
     /**
      * Try to remove URL segment
      *
-     * @param string $url Subject URL
-     * @param string $segment Search segment
+     * @param string $url         Subject URL
+     * @param string $segment     Search segment
      * @param string $replacement Replacement string
+     *
      * @return string Results URL
      */
     private function removeUrlSegment($url, $segment, $replacement = '/')
@@ -133,22 +136,23 @@ class Lang extends Component
         }
         preg_match('/^([^?]+?)(\?.+?)?$/', $url, $matches); // get url and get apart
         return preg_replace(
-            '/\/?' . $preparedSegment . '\/?/i',
-            $replacement,
-            (isset($matches[1]) ? $matches[1] : '')
-        ) . (isset($matches[2]) ? $matches[2] : '');
+                '/\/?' . $preparedSegment . '\/?/i',
+                $replacement,
+                (isset($matches[1]) ? $matches[1] : '')
+            ) . (isset($matches[2]) ? $matches[2] : '');
     }
 
     /**
      * Check language double-digit code
      *
      * @param string $dDLang Double-digit language code
+     *
      * @return boolean
      */
     private function checkDDLang($dDLang)
     {
         if (empty($dDLang)) {
-            return false;
+            return FALSE;
         }
         return array_key_exists($dDLang, $this->_langsList);
     }
@@ -203,6 +207,7 @@ class Lang extends Component
      * (only for handle \yii\web\UrlManager::createUrl())
      *
      * @param $url
+     *
      * @return string
      */
     public function urlManagerHandleCreatedUrl($url)
@@ -216,11 +221,12 @@ class Lang extends Component
     /**
      * Get current URL with language
      *
-     * @param string $dDLang Double-digit language code
+     * @param string  $dDLang Double-digit language code
      * @param boolean $scheme
+     *
      * @return string URL
      */
-    public function getCurrentUrlWithLang($dDLang, $scheme = false)
+    public function getCurrentUrlWithLang($dDLang, $scheme = FALSE)
     {
         $urlToWithoutBase = $this->removeUrlSegment(Url::to(), Url::base());
         $urlToWithoutCurrentLanguage = $this->removeUrlSegment($urlToWithoutBase, $this->_dDLang);

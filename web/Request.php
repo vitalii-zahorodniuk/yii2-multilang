@@ -18,7 +18,7 @@ class Request extends \yii\web\Request
     {
         $pathInfo = Yii::$app->lang->requestHandleLang($this->getUrl());
 
-        if (($pos = strpos($pathInfo, '?')) !== false) {
+        if (($pos = strpos($pathInfo, '?')) !== FALSE) {
             $pathInfo = substr($pathInfo, 0, $pos);
         }
 

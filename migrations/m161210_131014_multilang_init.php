@@ -73,7 +73,7 @@ class m161210_131014_multilang_init extends Migration
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
 
-        $this->createIndex('message_id_language', Message::TABLE_NAME, ['id', 'language'], true);
+        $this->createIndex('message_id_language', Message::TABLE_NAME, ['id', 'language'], TRUE);
         $this->addForeignKey('fk_message_source_message', Message::TABLE_NAME, 'id', SourceMessage::TABLE_NAME, 'id', 'CASCADE', 'CASCADE');
 
 

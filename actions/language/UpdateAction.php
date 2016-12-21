@@ -12,7 +12,7 @@ use yii\web\Response;
  * Class UpdateAction
  *
  * @property string $theme it can be IndexAction::THEME_BOOTSTRAP or IndexAction::THEME_ADMINLTE
- * @property string $view the view name (if need to override)
+ * @property string $view  the view name (if need to override)
  *
  * @package xz1mefx\multilang\actions\lang
  */
@@ -21,6 +21,7 @@ class UpdateAction extends BaseAction
 
     /**
      * @param $id
+     *
      * @return string
      * @throws NotFoundHttpException
      */

@@ -73,16 +73,16 @@ CSS
                         'content' => function ($model) {
                             /* @var $model \xz1mefx\multilang\models\Lang */
                             return $model->name . ($model->default == 1 ? ' ' . Html::icon('ok', [
-                                    'class' => 'text-red default-lang-ico',
-                                    'style' => 'display: none;',
-                                ]) : '');
+                                        'class' => 'text-red default-lang-ico',
+                                        'style' => 'display: none;',
+                                    ]) : '');
                         },
                     ],
                     'url',
                     'locale',
                     [
                         'attribute' => 'default',
-                        'filter' => false,
+                        'filter' => FALSE,
                         'headerOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
                         'contentOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
                         'content' => function ($model) {

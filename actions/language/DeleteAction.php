@@ -10,7 +10,7 @@ use yii\web\NotFoundHttpException;
  * Class DeleteAction
  *
  * @property string $theme it can be IndexAction::THEME_BOOTSTRAP or IndexAction::THEME_ADMINLTE
- * @property string $view the view name (if need to override)
+ * @property string $view  the view name (if need to override)
  *
  * @package xz1mefx\multilang\actions\lang
  */
@@ -19,6 +19,7 @@ class DeleteAction extends BaseAction
 
     /**
      * @param $id
+     *
      * @return string
      * @throws NotFoundHttpException
      */

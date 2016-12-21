@@ -8,9 +8,9 @@ use yii\db\ActiveRecord;
 /**
  * This is the model class for table "{{%message}}".
  *
- * @property integer $id
- * @property string $language
- * @property string $translation
+ * @property integer       $id
+ * @property string        $language
+ * @property string        $translation
  *
  * @property SourceMessage $id0
  */
@@ -59,7 +59,7 @@ class Message extends ActiveRecord
             [['translation'], 'string'],
             [['language'], 'string', 'max' => 16],
             [['id', 'language'], 'unique', 'targetAttribute' => ['id', 'language'], 'message' => Yii::t('multilang-tools', 'The combination of ID and Language has already been taken.')],
-            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => SourceMessage::className(), 'targetAttribute' => ['id' => 'id']],
+            [['id'], 'exist', 'skipOnError' => TRUE, 'targetClass' => SourceMessage::className(), 'targetAttribute' => ['id' => 'id']],
         ];
     }
 

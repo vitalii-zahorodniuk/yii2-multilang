@@ -67,7 +67,7 @@ CSS
             'locale',
             [
                 'attribute' => 'default',
-                'filter' => false,
+                'filter' => FALSE,
                 'headerOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
                 'contentOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
                 'content' => function ($model) {

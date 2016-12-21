@@ -9,7 +9,7 @@ use yii\bootstrap\Html;
 
 <div class="source-message-form">
 
-    <?php $form = ActiveForm::begin(['enableAjaxValidation' => true, 'validateOnType' => true]); ?>
+    <?php $form = ActiveForm::begin(['enableAjaxValidation' => TRUE, 'validateOnType' => TRUE]); ?>
 
     <strong><?= $model->getAttributeLabel('category') ?>:</strong>
     <div class="well"><?= $model->category ?></div>

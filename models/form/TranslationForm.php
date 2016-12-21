@@ -58,7 +58,7 @@ class TranslationForm extends SourceMessage
     /**
      * @inheritdoc
      */
-    function save($runValidation = true, $attributeNames = NULL)
+    function save($runValidation = TRUE, $attributeNames = NULL)
     {
         foreach (Lang::getLangListArray() as $key => $value) {
             $message = Message::findOne(['id' => $this->id, 'language' => $value['locale']]);
@@ -69,10 +69,10 @@ class TranslationForm extends SourceMessage
             $message->language = $value['locale'];
             $message->translation = isset($this->langs[$key]) ? $this->langs[$key] : '';
             if (!$message->save()) {
-                return false;
+                return FALSE;
             }
         }
-        return true;
+        return TRUE;
     }
 
 }

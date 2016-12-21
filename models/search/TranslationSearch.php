@@ -35,6 +35,7 @@ class TranslationSearch extends SourceMessage
 
     /**
      * @param $params
+     *
      * @return ActiveDataProvider
      */
     public function search($params)

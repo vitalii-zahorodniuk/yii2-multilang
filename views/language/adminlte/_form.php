@@ -10,13 +10,13 @@ use xz1mefx\adminlte\widgets\ActiveForm;
 <div class="box box-primary">
     <div class="box-body">
         <div class="box-body-overflow">
-            <?php $form = ActiveForm::begin(['enableAjaxValidation' => true, 'validateOnType' => true]); ?>
+            <?php $form = ActiveForm::begin(['enableAjaxValidation' => TRUE, 'validateOnType' => TRUE]); ?>
 
-            <?= $form->field($model, 'url')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'url')->textInput(['maxlength' => TRUE]) ?>
 
-            <?= $form->field($model, 'locale')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'locale')->textInput(['maxlength' => TRUE]) ?>
 
-            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+            <?= $form->field($model, 'name')->textInput(['maxlength' => TRUE]) ?>
 
             <?php if (!$model['default']): ?>
                 <?= $form->field($model, 'default')->checkbox() ?>
