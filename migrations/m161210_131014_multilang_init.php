@@ -8,6 +8,8 @@ class m161210_131014_multilang_init extends Migration
 {
     public function up()
     {
+        $this->down();
+
         $tableOptions = NULL;
         if ($this->db->driverName === 'mysql') {
             // http://stackoverflow.com/questions/766809/whats-the-difference-between-utf8-general-ci-and-utf8-unicode-ci
@@ -16,12 +18,12 @@ class m161210_131014_multilang_init extends Migration
 
 
         // -------------------------------------------
-        // Create lang table
+        // Create langs tables
         // -------------------------------------------
 
         // Language table
         $this->createTable(Language::TABLE_NAME, [
-            'id' => $this->primaryKey(),
+            'id' => $this->primaryKey()->unsigned(),
             'url' => $this->string(2)->notNull()->unique(),
             'locale' => $this->string(16)->notNull()->unique(),
             'name' => $this->string()->notNull(),
@@ -57,7 +59,7 @@ class m161210_131014_multilang_init extends Migration
 
         // Add translate tables
         $this->createTable(SourceMessage::TABLE_NAME, [
-            'id' => $this->primaryKey(),
+            'id' => $this->primaryKey()->unsigned(),
             'category' => $this->string(32),
             'message' => $this->text()->notNull(),
 
@@ -65,7 +67,7 @@ class m161210_131014_multilang_init extends Migration
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
         $this->createTable(Message::TABLE_NAME, [
-            'id' => $this->integer(),
+            'id' => $this->integer()->unsigned(),
             'language' => $this->string(16),
             'translation' => $this->text(),
 
@@ -684,8 +686,14 @@ SQL
     public function down()
     {
         Yii::$app->multilangCache->flush();
-        $this->dropTable(Message::TABLE_NAME);
-        $this->dropTable(SourceMessage::TABLE_NAME);
-        $this->dropTable(Language::TABLE_NAME);
+        if (Yii::$app->db->schema->getTableSchema(Message::TABLE_NAME) !== NULL) {
+            $this->dropTable(Message::TABLE_NAME);
+        }
+        if (Yii::$app->db->schema->getTableSchema(SourceMessage::TABLE_NAME) !== NULL) {
+            $this->dropTable(SourceMessage::TABLE_NAME);
+        }
+        if (Yii::$app->db->schema->getTableSchema(Language::TABLE_NAME) !== NULL) {
+            $this->dropTable(Language::TABLE_NAME);
+        }
     }
 }
