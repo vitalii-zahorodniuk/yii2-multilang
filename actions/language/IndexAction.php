@@ -2,7 +2,7 @@
 namespace xz1mefx\multilang\actions\language;
 
 use xz1mefx\multilang\actions\BaseAction;
-use xz1mefx\multilang\models\search\LangSearch;
+use xz1mefx\multilang\models\search\LanguageSearch;
 use Yii;
 
 /**
@@ -29,7 +29,7 @@ class IndexAction extends BaseAction
      */
     public function run()
     {
-        $searchModel = new LangSearch();
+        $searchModel = new LanguageSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->controller->render(

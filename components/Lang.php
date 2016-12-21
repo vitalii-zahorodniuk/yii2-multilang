@@ -1,14 +1,14 @@
 <?php
 namespace xz1mefx\multilang\components;
 
-use xz1mefx\multilang\models\Lang as LangModel;
+use xz1mefx\multilang\models\Language as LangModel;
 use Yii;
 use yii\base\Component;
 use yii\helpers\Url;
 use yii\web\Cookie;
 
 /**
- * Class Lang
+ * Class Language
  *
  * @package xz1mefx\multilang\components
  */

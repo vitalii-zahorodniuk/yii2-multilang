@@ -2,14 +2,14 @@
 
 namespace xz1mefx\multilang\models\search;
 
-use xz1mefx\multilang\models\Lang;
+use xz1mefx\multilang\models\Language;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 /**
- * LangSearch represents the model behind the search form about `xz1mefx\multilang\models\Lang`.
+ * LanguageSearch represents the model behind the search form about `xz1mefx\multilang\models\Language`.
  */
-class LangSearch extends Lang
+class LanguageSearch extends Language
 {
     /**
      * @inheritdoc
@@ -38,7 +38,7 @@ class LangSearch extends Lang
      */
     public function search($params)
     {
-        $query = Lang::find();
+        $query = Language::find();
 
         // add conditions that should always apply here
 

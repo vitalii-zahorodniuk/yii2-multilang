@@ -7,7 +7,7 @@ use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "{{%lang}}".
+ * This is the model class for table "{{%language}}".
  *
  * @property integer $id
  * @property string  $url
@@ -17,9 +17,9 @@ use yii\helpers\ArrayHelper;
  * @property integer $created_at
  * @property integer $updated_at
  */
-class Lang extends ActiveRecord
+class Language extends ActiveRecord
 {
-    const TABLE_NAME = '{{%ml_lang}}';
+    const TABLE_NAME = '{{%ml_language}}';
 
     /**
      * @inheritdoc

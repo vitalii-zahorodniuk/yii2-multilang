@@ -2,7 +2,7 @@
 
 namespace xz1mefx\multilang\models\form;
 
-use xz1mefx\multilang\models\Lang;
+use xz1mefx\multilang\models\Language;
 use xz1mefx\multilang\models\Message;
 use xz1mefx\multilang\models\SourceMessage;
 use Yii;
@@ -30,7 +30,7 @@ class TranslationForm extends SourceMessage
         parent::afterFind();
 
         // Init langs
-        foreach (Lang::getLangListArray() as $key => $lang) {
+        foreach (Language::getLangListArray() as $key => $lang) {
             $this->langs[$key] = $this->getTranslationByLocal($lang['locale']);
         }
     }
@@ -60,7 +60,7 @@ class TranslationForm extends SourceMessage
      */
     function save($runValidation = TRUE, $attributeNames = NULL)
     {
-        foreach (Lang::getLangListArray() as $key => $value) {
+        foreach (Language::getLangListArray() as $key => $value) {
             $message = Message::findOne(['id' => $this->id, 'language' => $value['locale']]);
             if (!isset($message)) {
                 $message = new Message();

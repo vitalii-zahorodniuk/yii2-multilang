@@ -1,5 +1,5 @@
 <?php
-use xz1mefx\multilang\models\Lang;
+use xz1mefx\multilang\models\Language;
 use xz1mefx\multilang\models\Message;
 use xz1mefx\multilang\models\SourceMessage;
 use yii\db\Migration;
@@ -19,8 +19,8 @@ class m161210_131014_multilang_init extends Migration
         // Create lang table
         // -------------------------------------------
 
-        // Lang table
-        $this->createTable(Lang::TABLE_NAME, [
+        // Language table
+        $this->createTable(Language::TABLE_NAME, [
             'id' => $this->primaryKey(),
             'url' => $this->string(2)->notNull()->unique(),
             'locale' => $this->string(16)->notNull()->unique(),
@@ -32,21 +32,21 @@ class m161210_131014_multilang_init extends Migration
         ], $tableOptions);
 
         // Add default languages
-        $this->insert(Lang::TABLE_NAME, [
+        $this->insert(Language::TABLE_NAME, [
             'url' => 'ru',
             'locale' => 'ru-RU',
             'name' => 'Русский',
             'created_at' => time(),
             'updated_at' => time(),
         ]);
-        $this->insert(Lang::TABLE_NAME, [
+        $this->insert(Language::TABLE_NAME, [
             'url' => 'uk',
             'locale' => 'uk-UA',
             'name' => 'Українська',
             'created_at' => time(),
             'updated_at' => time(),
         ]);
-        $this->insert(Lang::TABLE_NAME, [
+        $this->insert(Language::TABLE_NAME, [
             'url' => 'en',
             'locale' => 'en-US',
             'name' => 'English',
@@ -686,6 +686,6 @@ SQL
         Yii::$app->multilangCache->flush();
         $this->dropTable(Message::TABLE_NAME);
         $this->dropTable(SourceMessage::TABLE_NAME);
-        $this->dropTable(Lang::TABLE_NAME);
+        $this->dropTable(Language::TABLE_NAME);
     }
 }

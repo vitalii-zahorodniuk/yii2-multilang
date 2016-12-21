@@ -2,7 +2,7 @@
 namespace xz1mefx\multilang\actions\language;
 
 use xz1mefx\multilang\actions\BaseAction;
-use xz1mefx\multilang\models\Lang;
+use xz1mefx\multilang\models\Language;
 use Yii;
 use yii\bootstrap\ActiveForm;
 use yii\web\Response;
@@ -23,7 +23,7 @@ class CreateAction extends BaseAction
      */
     public function run()
     {
-        $model = new Lang();
+        $model = new Language();
 
         if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;

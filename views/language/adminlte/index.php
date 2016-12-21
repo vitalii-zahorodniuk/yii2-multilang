@@ -5,7 +5,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
-/* @var $searchModel xz1mefx\multilang\models\search\LangSearch */
+/* @var $searchModel xz1mefx\multilang\models\search\LanguageSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $canAdd bool */
 /* @var $canUpdate bool */
@@ -71,7 +71,7 @@ CSS
                     [
                         'attribute' => 'name',
                         'content' => function ($model) {
-                            /* @var $model \xz1mefx\multilang\models\Lang */
+                            /* @var $model \xz1mefx\multilang\models\Language */
                             return $model->name . ($model->default == 1 ? ' ' . Html::icon('ok', [
                                         'class' => 'text-red default-lang-ico',
                                         'style' => 'display: none;',
@@ -86,7 +86,7 @@ CSS
                         'headerOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
                         'contentOptions' => ['class' => 'text-center col-xs-1 col-sm-1'],
                         'content' => function ($model) {
-                            /* @var $model \xz1mefx\multilang\models\Lang */
+                            /* @var $model \xz1mefx\multilang\models\Language */
                             if ($model->default == 1) {
                                 return Html::icon('ok', ['class' => 'text-red']);
                             }

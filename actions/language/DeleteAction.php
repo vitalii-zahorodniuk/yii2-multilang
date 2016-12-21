@@ -2,7 +2,7 @@
 namespace xz1mefx\multilang\actions\language;
 
 use xz1mefx\multilang\actions\BaseAction;
-use xz1mefx\multilang\models\Lang;
+use xz1mefx\multilang\models\Language;
 use Yii;
 use yii\web\NotFoundHttpException;
 
@@ -25,7 +25,7 @@ class DeleteAction extends BaseAction
      */
     public function run($id)
     {
-        if (($model = Lang::findOne($id)) === NULL) {
+        if (($model = Language::findOne($id)) === NULL) {
             throw new NotFoundHttpException(Yii::t('multilang-tools', 'The requested language does not exist'));
         } else {
             if ($model->default != 0) {

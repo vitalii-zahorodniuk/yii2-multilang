@@ -1,7 +1,7 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $model xz1mefx\multilang\models\Lang */
+/* @var $model xz1mefx\multilang\models\Language */
 
 $this->title = Yii::t('multilang-tools', 'Add language');
 

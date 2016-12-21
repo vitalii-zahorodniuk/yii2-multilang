@@ -3,7 +3,7 @@ use xz1mefx\adminlte\helpers\Html;
 use xz1mefx\adminlte\widgets\ActiveForm;
 
 /* @var $this \yii\web\View */
-/* @var $model \xz1mefx\multilang\models\Lang */
+/* @var $model \xz1mefx\multilang\models\Language */
 /* @var $form ActiveForm */
 ?>
 
