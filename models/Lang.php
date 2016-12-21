@@ -19,12 +19,14 @@ use yii\helpers\ArrayHelper;
  */
 class Lang extends ActiveRecord
 {
+    const TABLE_NAME = '{{%ml_lang}}';
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%ml_lang}}';
+        return self::TABLE_NAME;
     }
 
     /**
@@ -63,8 +65,8 @@ class Lang extends ActiveRecord
     public static function clearCache()
     {
         return Yii::$app->multilangCache->delete([__CLASS__, 'langListArray'])
-        && Yii::$app->multilangCache->delete([__CLASS__, 'allLocalesArray'])
-        && Yii::$app->multilangCache->delete([__CLASS__, 'defaultLang']);
+            && Yii::$app->multilangCache->delete([__CLASS__, 'allLocalesArray'])
+            && Yii::$app->multilangCache->delete([__CLASS__, 'defaultLang']);
     }
 
     /**
