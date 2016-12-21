@@ -1,6 +1,8 @@
 <?php
 namespace xz1mefx\multilang\i18n;
 
+use xz1mefx\multilang\models\Message;
+use xz1mefx\multilang\models\SourceMessage;
 use Yii;
 use yii\caching\Cache;
 use yii\db\Query;
@@ -18,6 +20,7 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
      * Defaults to false, meaning translation is only performed when source and target languages are different.
      */
     public $forceTranslation = true;
+
     /**
      * @var Cache|array|string the cache object or the application component ID of the cache object.
      * The messages data will be cached using this cache object.
@@ -31,6 +34,16 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
      * @see enableCaching
      */
     public $cache = 'multilangCache';
+
+    /**
+     * @var string the name of the source message table.
+     */
+    public $sourceMessageTable = SourceMessage::TABLE_NAME;
+
+    /**
+     * @var string the name of the translated message table.
+     */
+    public $messageTable = Message::TABLE_NAME;
 
     private $_messages = [];
 

@@ -1,4 +1,7 @@
 <?php
+use xz1mefx\multilang\models\Lang;
+use xz1mefx\multilang\models\Message;
+use xz1mefx\multilang\models\SourceMessage;
 use yii\db\Migration;
 
 class m161210_131014_multilang_init extends Migration
@@ -17,7 +20,7 @@ class m161210_131014_multilang_init extends Migration
         // -------------------------------------------
 
         // Lang table
-        $this->createTable('{{%lang}}', [
+        $this->createTable(Lang::tableName(), [
             'id' => $this->primaryKey(),
             'url' => $this->string(2)->notNull()->unique(),
             'locale' => $this->string(16)->notNull()->unique(),
@@ -29,21 +32,21 @@ class m161210_131014_multilang_init extends Migration
         ], $tableOptions);
 
         // Add default languages
-        $this->insert('{{%lang}}', [
+        $this->insert(Lang::tableName(), [
             'url' => 'ru',
             'locale' => 'ru-RU',
             'name' => 'Русский',
             'created_at' => time(),
             'updated_at' => time(),
         ]);
-        $this->insert('{{%lang}}', [
+        $this->insert(Lang::tableName(), [
             'url' => 'uk',
             'locale' => 'uk-UA',
             'name' => 'Українська',
             'created_at' => time(),
             'updated_at' => time(),
         ]);
-        $this->insert('{{%lang}}', [
+        $this->insert(Lang::tableName(), [
             'url' => 'en',
             'locale' => 'en-US',
             'name' => 'English',
@@ -53,7 +56,7 @@ class m161210_131014_multilang_init extends Migration
         ]);
 
         // Add translate tables
-        $this->createTable('{{%source_message}}', [
+        $this->createTable(SourceMessage::tableName(), [
             'id' => $this->primaryKey(),
             'category' => $this->string(32),
             'message' => $this->text()->notNull(),
@@ -61,7 +64,7 @@ class m161210_131014_multilang_init extends Migration
             'created_at' => $this->integer()->notNull(),
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
-        $this->createTable('{{%message}}', [
+        $this->createTable(Message::tableName(), [
             'id' => $this->integer(),
             'language' => $this->string(16),
             'translation' => $this->text(),
@@ -70,16 +73,18 @@ class m161210_131014_multilang_init extends Migration
             'updated_at' => $this->integer()->notNull(),
         ], $tableOptions);
 
-        $this->createIndex('message_id_language', '{{%message}}', ['id', 'language'], true);
-        $this->addForeignKey('fk_message_source_message', '{{%message}}', 'id', '{{%source_message}}', 'id', 'CASCADE', 'CASCADE');
+        $this->createIndex('message_id_language', Message::tableName(), ['id', 'language'], true);
+        $this->addForeignKey('fk_message_source_message', Message::tableName(), 'id', SourceMessage::tableName(), 'id', 'CASCADE', 'CASCADE');
 
 
         // -------------------------------------------
         // Insert default source messages
         // -------------------------------------------
 
+        $sourceMessageTable = SourceMessage::tableName();
+
         $this->execute(<<<SQL
-INSERT INTO `source_message` (`id`, `category`, `message`, `created_at`, `updated_at`) VALUES
+INSERT INTO {$sourceMessageTable} (`id`, `category`, `message`, `created_at`, `updated_at`) VALUES
     (1, 'yii', 'Home', 0, 0),
     (2, 'yii', 'No results found.', 0, 0),
     (3, 'yii', 'Showing <b>{begin, number}-{end, number}</b> of <b>{totalCount, number}</b> {totalCount, plural, one{item} other{items}}.', 0, 0),
@@ -233,8 +238,10 @@ SQL
         // Insert default messages
         // -------------------------------------------
 
+        $messageTable = Message::tableName();
+
         $this->execute(<<<SQL
-INSERT INTO `message` (`id`, `language`, `translation`, `created_at`, `updated_at`) VALUES
+INSERT INTO {$messageTable} (`id`, `language`, `translation`, `created_at`, `updated_at`) VALUES
     (1, 'en-US', 'Home', 0, 0),
     (1, 'ru-RU', 'Главная', 0, 0),
     (1, 'uk-UA', 'Головна', 0, 0),
@@ -677,8 +684,8 @@ SQL
     public function down()
     {
         Yii::$app->multilangCache->flush();
-        $this->dropTable('{{%message}}');
-        $this->dropTable('{{%source_message}}');
-        $this->dropTable('{{%lang}}');
+        $this->dropTable(Message::tableName());
+        $this->dropTable(SourceMessage::tableName());
+        $this->dropTable(Lang::tableName());
     }
 }

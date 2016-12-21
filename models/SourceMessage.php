@@ -18,13 +18,14 @@ use yii\helpers\ArrayHelper;
  */
 class SourceMessage extends ActiveRecord
 {
+    const TABLE_NAME = '{{%ml_source_message}}';
 
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%source_message}}';
+        return self::TABLE_NAME;
     }
 
     /**

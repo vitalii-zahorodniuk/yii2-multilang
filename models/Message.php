@@ -16,12 +16,14 @@ use yii\db\ActiveRecord;
  */
 class Message extends ActiveRecord
 {
+    const TABLE_NAME = '{{%ml_message}}';
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return '{{%message}}';
+        return self::TABLE_NAME;
     }
 
     /**
@@ -90,5 +92,4 @@ class Message extends ActiveRecord
             'translation' => Yii::t('multilang-tools', 'Translation'),
         ];
     }
-
 }
