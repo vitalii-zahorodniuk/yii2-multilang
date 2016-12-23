@@ -136,7 +136,7 @@ class Lang extends Component
         }
         preg_match('/^([^?]+?)(\?.+?)?$/', $url, $matches); // get url and get apart
         return preg_replace(
-                '/\/?' . $preparedSegment . '\/?/i',
+                '/(?:\/|^)' . $preparedSegment . '(?:\/|$)/i',
                 $replacement,
                 (isset($matches[1]) ? $matches[1] : '')
             ) . (isset($matches[2]) ? $matches[2] : '');
