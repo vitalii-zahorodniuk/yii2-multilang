@@ -3,7 +3,7 @@ namespace xz1mefx\multilang\web;
 
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\helpers\Url;
+use xz1mefx\base\helpers\Url;
 
 /**
  * Class Request
@@ -79,12 +79,12 @@ class Request extends \yii\web\Request
 
             if (empty($dDLang)) {
                 $dDLang = Yii::$app->lang->tryDetectDDLang();
-                Yii::$app->getResponse()->redirect(Url::home(TRUE) . $dDLang . Yii::$app->lang->removeUrlSegment($url, Url::home()), 302);
+                Yii::$app->getResponse()->redirect(Url::home(TRUE) . $dDLang . Url::removeUrlSegment($url, Url::home()), 302);
             }
 
             Yii::$app->lang->setIsoDDLang($dDLang);
 
-            return Yii::$app->lang->removeUrlSegment($url, $dDLang); // return URL without language code
+            return Url::removeUrlSegment($url, $dDLang); // return URL without language code
         }
 
         return $url;

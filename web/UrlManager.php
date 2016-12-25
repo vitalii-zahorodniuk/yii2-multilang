@@ -58,7 +58,7 @@ class UrlManager extends \yii\web\UrlManager
     private function urlManagerHandleCreatedUrl($url)
     {
         if (Yii::$app->lang->enabled()) {
-            return Url::home() . Yii::$app->lang->getDDLang() . Yii::$app->lang->removeUrlSegment($url, Url::home());
+            return Url::home() . Yii::$app->lang->getDDLang() . Url::removeUrlSegment($url, Url::home());
         }
         return $url;
     }

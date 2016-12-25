@@ -17,7 +17,7 @@
     }
   ],
   "require": {
-    "yiisoft/yii2": "~2.0"
+    "xz1mefx/yii2-base": "*"
   },
   "autoload": {
     "psr-4": {

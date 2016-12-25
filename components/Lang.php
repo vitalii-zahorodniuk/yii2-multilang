@@ -1,10 +1,10 @@
 <?php
 namespace xz1mefx\multilang\components;
 
+use xz1mefx\base\helpers\Url;
 use xz1mefx\multilang\models\Language as LangModel;
 use Yii;
 use yii\base\Component;
-use yii\helpers\Url;
 use yii\web\Cookie;
 
 /**
@@ -85,34 +85,11 @@ class Lang extends Component
         $dDLang = explode(
             '/',
             trim(
-                $this->removeUrlSegment($url, Url::home()), // remove url home ()
+                Url::removeUrlSegment($url, Url::home()), // remove url home ()
                 '/'
             )
         )[0];
         return $this->checkDDLang($dDLang) ? $dDLang : NULL;
-    }
-
-    /**
-     * Try to remove URL segment
-     *
-     * @param string $url         Subject URL
-     * @param string $segment     Search segment
-     * @param string $replacement Replacement string
-     *
-     * @return string Results URL
-     */
-    public function removeUrlSegment($url, $segment, $replacement = '/')
-    {
-        $preparedSegment = trim($segment, '/');
-        if (empty($preparedSegment)) {
-            return $url;
-        }
-        preg_match('/^([^?]+?)(\?.+?)?$/', $url, $matches); // get url and get apart
-        return preg_replace(
-                '/(?:\/|^)' . $preparedSegment . '(?:\/|$)/i',
-                $replacement,
-                (isset($matches[1]) ? $matches[1] : '')
-            ) . (isset($matches[2]) ? $matches[2] : '');
     }
 
     /**
@@ -195,8 +172,8 @@ class Lang extends Component
      */
     public function getCurrentUrlWithLang($dDLang, $scheme = FALSE)
     {
-        $urlToWithoutBase = $this->removeUrlSegment(Url::to(), Url::base());
-        $urlToWithoutCurrentLanguage = $this->removeUrlSegment($urlToWithoutBase, $this->_dDLang);
+        $urlToWithoutBase = Url::removeUrlSegment(Url::to(), Url::base());
+        $urlToWithoutCurrentLanguage = Url::removeUrlSegment($urlToWithoutBase, $this->_dDLang);
         return Url::home($scheme) . $dDLang . $urlToWithoutCurrentLanguage;
     }
 
