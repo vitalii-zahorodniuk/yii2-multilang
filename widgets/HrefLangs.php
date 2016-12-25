@@ -3,7 +3,7 @@ namespace xz1mefx\multilang\widgets;
 
 use Yii;
 use yii\bootstrap\Widget;
-use yii\helpers\Url;
+use xz1mefx\base\helpers\Url;
 
 /**
  * Class HrefLangs

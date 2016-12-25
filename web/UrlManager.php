@@ -2,7 +2,7 @@
 namespace xz1mefx\multilang\web;
 
 use Yii;
-use yii\helpers\Url;
+use xz1mefx\base\helpers\Url;
 
 /**
  * Class UrlManager
