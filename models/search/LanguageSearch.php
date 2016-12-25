@@ -11,6 +11,7 @@ use yii\data\ActiveDataProvider;
  */
 class LanguageSearch extends Language
 {
+
     /**
      * @inheritdoc
      */

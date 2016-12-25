@@ -3,9 +3,15 @@ namespace xz1mefx\multilang\web;
 
 use Yii;
 use yii\base\InvalidConfigException;
+use yii\helpers\Url;
 
+/**
+ * Class Request
+ * @package xz1mefx\multilang\web
+ */
 class Request extends \yii\web\Request
 {
+
     /**
      * Resolves the path info part of the currently requested URL.
      * A path info refers to the part that is after the entry script and before the question mark (query string).
@@ -16,7 +22,7 @@ class Request extends \yii\web\Request
      */
     public function resolvePathInfo()
     {
-        $pathInfo = Yii::$app->lang->requestHandleLang($this->getUrl());
+        $pathInfo = $this->requestHandleLang($this->getUrl());
 
         if (($pos = strpos($pathInfo, '?')) !== FALSE) {
             $pathInfo = substr($pathInfo, 0, $pos);
@@ -57,5 +63,30 @@ class Request extends \yii\web\Request
         }
 
         return (string)$pathInfo;
+    }
+
+    /**
+     * Handle language in URL.
+     *
+     * @param string $url URL
+     *
+     * @return string URL
+     */
+    private function requestHandleLang($url)
+    {
+        if (Yii::$app->lang->enabled()) {
+            $dDLang = Yii::$app->lang->tryGetUrlLang($url);
+
+            if (empty($dDLang)) {
+                $dDLang = Yii::$app->lang->tryDetectDDLang();
+                Yii::$app->getResponse()->redirect(Url::home(TRUE) . $dDLang . Yii::$app->lang->removeUrlSegment($url, Url::home()), 302);
+            }
+
+            Yii::$app->lang->setIsoDDLang($dDLang);
+
+            return Yii::$app->lang->removeUrlSegment($url, $dDLang); // return URL without language code
+        }
+
+        return $url;
     }
 }

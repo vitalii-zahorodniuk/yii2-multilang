@@ -10,6 +10,7 @@ use yii\bootstrap\Widget;
  */
 class HeaderDropDownLangSelector extends Widget
 {
+
     /**
      * @var string
      */

@@ -18,6 +18,7 @@ use yii\helpers\ArrayHelper;
  */
 class SourceMessage extends ActiveRecord
 {
+
     const TABLE_NAME = '{{%ml_source_message}}';
 
     /**

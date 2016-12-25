@@ -6,6 +6,7 @@ namespace xz1mefx\multilang\i18n;
  */
 class I18N extends \yii\i18n\I18N
 {
+
     /**
      * @inheritdoc
      */

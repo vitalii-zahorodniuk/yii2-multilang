@@ -11,6 +11,7 @@ use yii\helpers\Url;
  */
 class HrefLangs extends Widget
 {
+
     /**
      * @var string
      */

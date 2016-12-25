@@ -19,6 +19,7 @@ use yii\helpers\ArrayHelper;
  */
 class Language extends ActiveRecord
 {
+
     const TABLE_NAME = '{{%ml_language}}';
 
     /**

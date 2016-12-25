@@ -2,9 +2,15 @@
 namespace xz1mefx\multilang\web;
 
 use Yii;
+use yii\helpers\Url;
 
+/**
+ * Class UrlManager
+ * @package xz1mefx\multilang\web
+ */
 class UrlManager extends \yii\web\UrlManager
 {
+
     /**
      * Creates a URL using the given route and query parameters.
      *
@@ -38,7 +44,23 @@ class UrlManager extends \yii\web\UrlManager
      */
     public function createUrl($params)
     {
-        return Yii::$app->lang->urlManagerHandleCreatedUrl(parent::createUrl($params)); // create URL with language code
+        return $this->urlManagerHandleCreatedUrl(parent::createUrl($params)); // create URL with language code
+    }
+
+    /**
+     * Create URL with language.
+     * (only for handle \yii\web\UrlManager::createUrl())
+     *
+     * @param $url
+     *
+     * @return string
+     */
+    private function urlManagerHandleCreatedUrl($url)
+    {
+        if (Yii::$app->lang->enabled()) {
+            return Url::home() . Yii::$app->lang->getDDLang() . Yii::$app->lang->removeUrlSegment($url, Url::home());
+        }
+        return $url;
     }
 
 }

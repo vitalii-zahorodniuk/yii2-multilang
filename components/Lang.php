@@ -65,39 +65,12 @@ class Lang extends Component
     }
 
     /**
-     * Handle language in URL.
-     * (only for handle $pathInfo in \yii\web\Request::resolvePathInfo())
-     *
-     * @param string $url URL
-     *
-     * @return string URL
+     * Get double digit language
+     * @return string
      */
-    public function requestHandleLang($url)
+    public function getId()
     {
-        if ($this->enabled()) {
-            $dDLang = $this->tryGetUrlLang($url);
-
-            if (empty($dDLang)) {
-                $dDLang = $this->tryDetectDDLang();
-                Yii::$app->getResponse()->redirect(Url::home(TRUE) . $dDLang . $this->removeUrlSegment($url, Url::home()), 302);
-            }
-
-            $this->setLang($dDLang);
-
-            return $this->removeUrlSegment($url, $dDLang); // return URL without language code
-        }
-
-        return $url;
-    }
-
-    /**
-     * Determines it necessary to work with the language
-     *
-     * @return bool
-     */
-    public function enabled()
-    {
-        return count($this->_langsList) > 1;
+        return $this->_langsList[$this->_dDLang]['id'];
     }
 
     /**
@@ -107,7 +80,7 @@ class Lang extends Component
      *
      * @return string Double-digit language code
      */
-    private function tryGetUrlLang($url)
+    public function tryGetUrlLang($url)
     {
         $dDLang = explode(
             '/',
@@ -128,7 +101,7 @@ class Lang extends Component
      *
      * @return string Results URL
      */
-    private function removeUrlSegment($url, $segment, $replacement = '/')
+    public function removeUrlSegment($url, $segment, $replacement = '/')
     {
         $preparedSegment = trim($segment, '/');
         if (empty($preparedSegment)) {
@@ -162,7 +135,7 @@ class Lang extends Component
      *
      * @return string Double-digit language code
      */
-    private function tryDetectDDLang()
+    public function tryDetectDDLang()
     {
         // try to get lang from cookies
         $dDLang = Yii::$app->request->cookies->getValue('lang');
@@ -190,7 +163,7 @@ class Lang extends Component
      *
      * @param string $dDLang Double-digit language code
      */
-    private function setLang($dDLang)
+    public function setIsoDDLang($dDLang)
     {
         $this->_dDLang = $dDLang;
         Yii::$app->language = $this->_langsList[$dDLang]['locale'];
@@ -203,19 +176,13 @@ class Lang extends Component
     }
 
     /**
-     * Create URL with language.
-     * (only for handle \yii\web\UrlManager::createUrl())
+     * Determines it necessary to work with the language
      *
-     * @param $url
-     *
-     * @return string
+     * @return bool
      */
-    public function urlManagerHandleCreatedUrl($url)
+    public function enabled()
     {
-        if ($this->enabled()) {
-            return Url::home() . $this->_dDLang . $this->removeUrlSegment($url, Url::home());
-        }
-        return $url;
+        return count($this->_langsList) > 1;
     }
 
     /**

@@ -16,6 +16,7 @@ use yii\db\ActiveRecord;
  */
 class Message extends ActiveRecord
 {
+
     const TABLE_NAME = '{{%ml_message}}';
 
     /**

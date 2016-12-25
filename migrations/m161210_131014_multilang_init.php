@@ -6,6 +6,7 @@ use yii\db\Migration;
 
 class m161210_131014_multilang_init extends Migration
 {
+
     public function up()
     {
         $this->down();

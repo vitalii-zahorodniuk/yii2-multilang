@@ -10,6 +10,7 @@ use yii\i18n\MissingTranslationEvent;
 
 class DbMessageSource extends \yii\i18n\DbMessageSource
 {
+
     /**
      * @var boolean whether to enable caching translated messages
      */
