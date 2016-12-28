@@ -61,16 +61,6 @@ class Language extends ActiveRecord
     }
 
     /**
-     * Clear model multilangCache
-     */
-    public static function clearCache()
-    {
-        return Yii::$app->multilangCache->delete([__CLASS__, 'langListArray'])
-            && Yii::$app->multilangCache->delete([__CLASS__, 'allLocalesArray'])
-            && Yii::$app->multilangCache->delete([__CLASS__, 'defaultLang']);
-    }
-
-    /**
      * Get default language data
      * @return array
      */

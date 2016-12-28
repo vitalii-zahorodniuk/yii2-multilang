@@ -45,14 +45,6 @@ class SourceMessage extends ActiveRecord
     }
 
     /**
-     * Clear model multilangCache
-     */
-    public static function clearCache()
-    {
-        return Yii::$app->multilangCache->delete([__CLASS__, 'allCategoriesArray']);
-    }
-
-    /**
      * @return array
      */
     public static function getCategoriesDrDownList()
