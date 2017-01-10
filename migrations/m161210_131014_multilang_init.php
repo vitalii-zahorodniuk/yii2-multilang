@@ -229,10 +229,7 @@ INSERT INTO {$sourceMessageTable} (`id`, `category`, `message`, `created_at`, `u
     (139, 'multilang-tools', 'You can''t delete default language!', 0, 0),
     (140, 'multilang-tools', 'Language deleted successfully!', 0, 0),
     (141, 'multilang-tools', 'Language updated successfully!', 0, 0),
-    (142, 'multilang-tools', 'Language created successfully!', 0, 0),
-    (143, 'multilang-tools', 'Русский', 0, 0),
-    (144, 'multilang-tools', 'Українська', 0, 0),
-    (145, 'multilang-tools', 'English', 0, 0);
+    (142, 'multilang-tools', 'Language created successfully!', 0, 0);
 SQL
         );
 
@@ -670,16 +667,7 @@ INSERT INTO {$messageTable} (`id`, `language`, `translation`, `created_at`, `upd
     (141, 'uk-UA', 'Мова змінена успішно!', 0, 1481716366),
     (142, 'en-US', 'Language created successfully!', 0, 1481716400),
     (142, 'ru-RU', 'Язык создан успешно!', 0, 1481716400),
-    (142, 'uk-UA', 'Мова створена успішно!', 0, 1481716400),
-    (143, 'en-US', 'Русский', 0, 1481716456),
-    (143, 'ru-RU', 'Русский', 0, 1481716443),
-    (143, 'uk-UA', 'Русский', 0, 1481716456),
-    (144, 'en-US', 'Українська', 0, 1481716463),
-    (144, 'ru-RU', 'Українська', 0, 1481716462),
-    (144, 'uk-UA', 'Українська', 0, 1481716463),
-    (145, 'en-US', 'English', 0, 1481716471),
-    (145, 'ru-RU', 'English', 0, 1481716471),
-    (145, 'uk-UA', 'English', 0, 1481716471);
+    (142, 'uk-UA', 'Мова створена успішно!', 0, 1481716400);
 SQL
         );
     }
