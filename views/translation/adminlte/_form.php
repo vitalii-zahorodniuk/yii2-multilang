@@ -21,7 +21,7 @@ use xz1mefx\adminlte\widgets\ActiveForm;
             <hr>
 
             <?php foreach (Yii::$app->lang->getLangList() as $key => $lang): ?>
-                <?= $form->field($model, "langs[$key]")->textarea(['rows' => 4])->label(Yii::t('multilang-tools', $lang['name'])) ?>
+                <?= $form->field($model, "langs[$key]")->textarea(['rows' => 4, 'placeholder' => Yii::t('multilang-tools', 'Enter a translate...', [], $lang['locale'])])->label(Yii::t('multilang-tools', $lang['name'])) ?>
             <?php endforeach; ?>
 
             <div class="form-group">

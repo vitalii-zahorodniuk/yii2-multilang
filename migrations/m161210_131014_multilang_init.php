@@ -81,11 +81,41 @@ class m161210_131014_multilang_init extends Migration
 
 
         // -------------------------------------------
-        // Insert default source messages
+        // Update translates tables
         // -------------------------------------------
 
-        $sourceMessageTable = SourceMessage::TABLE_NAME;
+        $this->setTranslates();
+    }
 
+    public function down()
+    {
+        Yii::$app->multilangCache->flush();
+        if (Yii::$app->db->schema->getTableSchema(Message::TABLE_NAME) !== NULL) {
+            $this->dropTable(Message::TABLE_NAME);
+        }
+        if (Yii::$app->db->schema->getTableSchema(SourceMessage::TABLE_NAME) !== NULL) {
+            $this->dropTable(SourceMessage::TABLE_NAME);
+        }
+        if (Yii::$app->db->schema->getTableSchema(Language::TABLE_NAME) !== NULL) {
+            $this->dropTable(Language::TABLE_NAME);
+        }
+    }
+
+    private function setTranslates()
+    {
+        $sourceMessageTable = SourceMessage::TABLE_NAME;
+        $messageTable = Message::TABLE_NAME;
+
+        // truncate tables
+        $this->execute(<<<SQL
+SET FOREIGN_KEY_CHECKS = 0; 
+TRUNCATE $sourceMessageTable; 
+TRUNCATE $messageTable; 
+SET FOREIGN_KEY_CHECKS = 1;
+SQL
+        );
+
+        // insert default source messages
         $this->execute(<<<SQL
 INSERT INTO {$sourceMessageTable} (`id`, `category`, `message`, `created_at`, `updated_at`) VALUES
     (1, 'yii', 'Home', 0, 0),
@@ -229,17 +259,18 @@ INSERT INTO {$sourceMessageTable} (`id`, `category`, `message`, `created_at`, `u
     (139, 'multilang-tools', 'You can''t delete default language!', 0, 0),
     (140, 'multilang-tools', 'Language deleted successfully!', 0, 0),
     (141, 'multilang-tools', 'Language updated successfully!', 0, 0),
-    (142, 'multilang-tools', 'Language created successfully!', 0, 0);
+    (142, 'multilang-tools', 'Language created successfully!', 0, 0),
+    (143, 'multilang-tools', 'Русский', 0, 0),
+    (144, 'multilang-tools', 'Українська', 0, 0),
+    (145, 'multilang-tools', 'English', 0, 0),
+    (146, 'multilang-tools', 'Enter a url...', 0, 0),
+    (147, 'multilang-tools', 'Enter a locale...', 0, 0),
+    (148, 'multilang-tools', 'Enter a name...', 0, 0),
+    (149, 'multilang-tools', 'Enter a translate...', 0, 0);
 SQL
         );
 
-
-        // -------------------------------------------
         // Insert default messages
-        // -------------------------------------------
-
-        $messageTable = Message::TABLE_NAME;
-
         $this->execute(<<<SQL
 INSERT INTO {$messageTable} (`id`, `language`, `translation`, `created_at`, `updated_at`) VALUES
     (1, 'en-US', 'Home', 0, 0),
@@ -254,9 +285,9 @@ INSERT INTO {$messageTable} (`id`, `language`, `translation`, `created_at`, `upd
     (4, 'en-US', 'Total <b>{count, number}</b> {count, plural, one{item} other{items}}.', 0, 0),
     (4, 'ru-RU', 'Всего <b>{count, number}</b> {count, plural, one{запись} few{записи} many{записей} other{записи}}.', 0, 0),
     (4, 'uk-UA', 'Всього <b>{count, number}</b> {count, plural, one{запис} few{записи} many{записів} other{записи}}.', 0, 0),
-    (5, 'en-US', 'Unknown alias: -{name}', 0, 1481716923),
-    (5, 'ru-RU', 'Unknown alias: -{name}', 0, 1481716923),
-    (5, 'uk-UA', 'Unknown alias: -{name}', 0, 1481716923),
+    (5, 'en-US', 'Unknown alias: -{name}', 0, 0),
+    (5, 'ru-RU', 'Unknown alias: -{name}', 0, 0),
+    (5, 'uk-UA', 'Unknown alias: -{name}', 0, 0),
     (6, 'en-US', 'Unknown option: --{name}', 0, 0),
     (6, 'ru-RU', 'Неизвестная опция: --{name}', 0, 0),
     (6, 'uk-UA', 'Невідома опція : --{name}', 0, 0),
@@ -398,12 +429,12 @@ INSERT INTO {$messageTable} (`id`, `language`, `translation`, `created_at`, `upd
     (52, 'en-US', 'You are not allowed to perform this action.', 0, 0),
     (52, 'ru-RU', 'Вам не разрешено производить данное действие.', 0, 0),
     (52, 'uk-UA', 'Вам не дозволено виконувати дану дію.', 0, 0),
-    (53, 'en-US', 'Powered by {yii}', 0, 1481716945),
-    (53, 'ru-RU', 'Powered by {yii}', 0, 1481716945),
-    (53, 'uk-UA', 'Powered by {yii}', 0, 1481716945),
-    (54, 'en-US', 'Yii Framework', 0, 1481716961),
-    (54, 'ru-RU', 'Yii Framework', 0, 1481716961),
-    (54, 'uk-UA', 'Yii Framework', 0, 1481716961),
+    (53, 'en-US', 'Powered by {yii}', 0, 0),
+    (53, 'ru-RU', 'Powered by {yii}', 0, 0),
+    (53, 'uk-UA', 'Powered by {yii}', 0, 0),
+    (54, 'en-US', 'Yii Framework', 0, 0),
+    (54, 'ru-RU', 'Yii Framework', 0, 0),
+    (54, 'uk-UA', 'Yii Framework', 0, 0),
     (55, 'en-US', 'Page not found.', 0, 0),
     (55, 'ru-RU', 'Страница не найдена.', 0, 0),
     (55, 'uk-UA', 'Сторінка не знайдена.', 0, 0),
@@ -431,9 +462,9 @@ INSERT INTO {$messageTable} (`id`, `language`, `translation`, `created_at`, `upd
     (63, 'en-US', '{attribute} is invalid.', 0, 0),
     (63, 'ru-RU', 'Значение «{attribute}» неверно.', 0, 0),
     (63, 'uk-UA', 'Значення "{attribute}" не вірне.', 0, 0),
-    (64, 'en-US', 'The combination {values} of {attributes} has already been taken.', 0, 1481716985),
-    (64, 'ru-RU', 'The combination {values} of {attributes} has already been taken.', 0, 1481716985),
-    (64, 'uk-UA', 'The combination {values} of {attributes} has already been taken.', 0, 1481716985),
+    (64, 'en-US', 'The combination {values} of {attributes} has already been taken.', 0, 0),
+    (64, 'ru-RU', 'The combination {values} of {attributes} has already been taken.', 0, 0),
+    (64, 'uk-UA', 'The combination {values} of {attributes} has already been taken.', 0, 0),
     (65, 'en-US', '{attribute} "{value}" has already been taken.', 0, 0),
     (65, 'ru-RU', 'Значение «{value}» для «{attribute}» уже занято.', 0, 0),
     (65, 'uk-UA', 'Значення «{value}» для «{attribute}» вже зайнято.', 0, 0),
@@ -575,114 +606,122 @@ INSERT INTO {$messageTable} (`id`, `language`, `translation`, `created_at`, `upd
     (111, 'en-US', 'Please fix the following errors:', 0, 0),
     (111, 'ru-RU', 'Исправьте следующие ошибки:', 0, 0),
     (111, 'uk-UA', 'Будь ласка, виправте наступні помилки:', 0, 0),
-    (112, 'en-US', '{percent}% Complete', 0, 1481717028),
-    (112, 'ru-RU', '{percent}% Выполнено', 0, 1481717028),
-    (112, 'uk-UA', '{percent}% Виконано', 0, 1481717028),
-    (113, 'en-US', 'Update translation', 0, 1481715219),
-    (113, 'ru-RU', 'Изменить перевод', 0, 1481715219),
-    (113, 'uk-UA', 'Змінити перевод', 0, 1481715219),
-    (114, 'en-US', 'Interface translations', 0, 1481715309),
-    (114, 'ru-RU', 'Переводы интерфейса', 0, 1481715309),
-    (114, 'uk-UA', 'Переклади інтерфейса', 0, 1481715309),
-    (115, 'en-US', 'Create', 0, 1481715325),
-    (115, 'ru-RU', 'Создать', 0, 1481715325),
-    (115, 'uk-UA', 'Створити', 0, 1481715325),
-    (116, 'en-US', 'Update', 0, 1481715340),
-    (116, 'ru-RU', 'Обновить', 0, 1481715340),
-    (116, 'uk-UA', 'Оновити', 0, 1481715340),
-    (117, 'en-US', 'Translation ({language})', 0, 1481715363),
-    (117, 'ru-RU', 'Перевод ({language})', 0, 1481715363),
-    (117, 'uk-UA', 'Переклад ({language})', 0, 1481715363),
-    (118, 'en-US', 'Add language', 0, 1481715388),
-    (118, 'ru-RU', 'Добавить язык', 0, 1481715388),
-    (118, 'uk-UA', 'Додати мову', 0, 1481715388),
-    (119, 'en-US', 'Languages', 0, 1481715472),
-    (119, 'ru-RU', 'Языки', 0, 1481715472),
-    (119, 'uk-UA', 'Мови', 0, 1481715472),
-    (120, 'en-US', 'Update language:', 0, 1481715560),
-    (120, 'ru-RU', 'Изменение языка:', 0, 1481715560),
-    (120, 'uk-UA', 'Зміна мови:', 0, 1481715560),
-    (121, 'en-US', 'If you select this option here, it will be reset everywhere', 0, 1481715684),
-    (121, 'ru-RU', 'Если Вы выберете данную опцию здесь, она будет сброшена везде', 0, 1481715684),
-    (121, 'uk-UA', 'Якщо Ви виберете цю опцію тут, вона буде скинута всюди', 0, 1481715684),
-    (122, 'en-US', 'Update language', 0, 1481715754),
-    (122, 'ru-RU', 'Изменение языка', 0, 1481715754),
-    (122, 'uk-UA', 'Оновлення мови', 0, 1481715754),
-    (123, 'en-US', 'The combination of ID and Language has already been taken.', 0, 1481715821),
-    (123, 'ru-RU', 'Данное сочетание ID и языка уже существует', 0, 1481715821),
-    (123, 'uk-UA', 'Дане поєднання ID і мови вже існує', 0, 1481715821),
-    (124, 'en-US', 'ID', 0, 1481715829),
-    (124, 'ru-RU', 'ID', 0, 1481715829),
-    (124, 'uk-UA', 'ID', 0, 1481715829),
-    (125, 'en-US', 'Language', 0, 1481715843),
-    (125, 'ru-RU', 'Язык', 0, 1481715843),
-    (125, 'uk-UA', 'Мова', 0, 1481715843),
-    (126, 'en-US', 'Translation', 0, 1481715861),
-    (126, 'ru-RU', 'Перевод', 0, 1481715861),
-    (126, 'uk-UA', 'Переклад', 0, 1481715861),
-    (127, 'en-US', 'You can only override the default language', 0, 1481715922),
-    (127, 'ru-RU', 'Вы можете только изменить язык установленный по умолчанию', 0, 1481715922),
-    (127, 'uk-UA', 'Ви можете тільки змінити мову встановлену за замовчуванням', 0, 1481715922),
-    (128, 'en-US', 'Url (ISO 639-1)', 0, 1481715934),
-    (128, 'ru-RU', 'Url (ISO 639-1)', 0, 1481715934),
-    (128, 'uk-UA', 'Url (ISO 639-1)', 0, 1481715934),
-    (129, 'en-US', 'Locale', 0, 1481715998),
-    (129, 'ru-RU', 'Локаль', 0, 1481715998),
-    (129, 'uk-UA', 'Локаль', 0, 1481715998),
-    (130, 'en-US', 'Name', 0, 1481716011),
-    (130, 'ru-RU', 'Название', 0, 1481716011),
-    (130, 'uk-UA', 'Назва', 0, 1481716011),
-    (131, 'en-US', 'Is Default', 0, 1481716041),
-    (131, 'ru-RU', 'По умолчанию', 0, 1481716041),
-    (131, 'uk-UA', 'За замовчуванням', 0, 1481716041),
-    (132, 'en-US', 'Created At', 0, 1481716055),
-    (132, 'ru-RU', 'Создано', 0, 1481716055),
-    (132, 'uk-UA', 'Створено', 0, 1481716055),
-    (133, 'en-US', 'Updated At', 0, 1481716065),
-    (133, 'ru-RU', 'Обновлено', 0, 1481716065),
-    (133, 'uk-UA', 'Оновлено', 0, 1481716065),
-    (134, 'en-US', 'Message category', 0, 1481716102),
-    (134, 'ru-RU', 'Категория перевода', 0, 1481716102),
-    (134, 'uk-UA', 'Категорія перекладу', 0, 1481716102),
-    (135, 'en-US', 'Message key', 0, 1481716137),
-    (135, 'ru-RU', 'Ключ перевода', 0, 1481716137),
-    (135, 'uk-UA', 'Ключ перекладу', 0, 1481716137),
-    (136, 'en-US', 'The requested translation does not exist', 0, 1481716193),
-    (136, 'ru-RU', 'Запрашиваемый перевод не существует', 0, 1481716193),
-    (136, 'uk-UA', 'Запитуваний переклад не існує', 0, 1481716193),
-    (137, 'en-US', 'Translation updated successfully!', 0, 1481716235),
-    (137, 'ru-RU', 'Перевод успешно изменен!', 0, 1481716235),
-    (137, 'uk-UA', 'Переклад змінено успішно!', 0, 1481716235),
-    (138, 'en-US', 'The requested language does not exist', 0, 1481716273),
-    (138, 'ru-RU', 'Запрашиваемый язык не существует', 0, 1481716273),
-    (138, 'uk-UA', 'Запитувана мова не існує', 0, 1481716273),
-    (139, 'en-US', 'You can''t delete default language!', 0, 1481716305),
-    (139, 'ru-RU', 'Вы не можете удалить язык по умолчанию!', 0, 1481716305),
-    (139, 'uk-UA', 'Ви не можете видалити мову за замовчуванням!', 0, 1481716305),
-    (140, 'en-US', 'Language deleted successfully!', 0, 1481716335),
-    (140, 'ru-RU', 'Язык удален успешно!', 0, 1481716335),
-    (140, 'uk-UA', 'Мову видалено успішно!', 0, 1481716335),
-    (141, 'en-US', 'Language updated successfully!', 0, 1481716366),
-    (141, 'ru-RU', 'Язык изменен успешно!', 0, 1481716366),
-    (141, 'uk-UA', 'Мова змінена успішно!', 0, 1481716366),
-    (142, 'en-US', 'Language created successfully!', 0, 1481716400),
-    (142, 'ru-RU', 'Язык создан успешно!', 0, 1481716400),
-    (142, 'uk-UA', 'Мова створена успішно!', 0, 1481716400);
+    (112, 'en-US', '{percent}% Complete', 0, 0),
+    (112, 'ru-RU', '{percent}% Выполнено', 0, 0),
+    (112, 'uk-UA', '{percent}% Виконано', 0, 0),
+    (113, 'en-US', 'Update translation', 0, 0),
+    (113, 'ru-RU', 'Изменить перевод', 0, 0),
+    (113, 'uk-UA', 'Змінити перевод', 0, 0),
+    (114, 'en-US', 'Interface translations', 0, 0),
+    (114, 'ru-RU', 'Переводы интерфейса', 0, 0),
+    (114, 'uk-UA', 'Переклади інтерфейса', 0, 0),
+    (115, 'en-US', 'Create', 0, 0),
+    (115, 'ru-RU', 'Создать', 0, 0),
+    (115, 'uk-UA', 'Створити', 0, 0),
+    (116, 'en-US', 'Update', 0, 0),
+    (116, 'ru-RU', 'Обновить', 0, 0),
+    (116, 'uk-UA', 'Оновити', 0, 0),
+    (117, 'en-US', 'Translation ({language})', 0, 0),
+    (117, 'ru-RU', 'Перевод ({language})', 0, 0),
+    (117, 'uk-UA', 'Переклад ({language})', 0, 0),
+    (118, 'en-US', 'Add language', 0, 0),
+    (118, 'ru-RU', 'Добавить язык', 0, 0),
+    (118, 'uk-UA', 'Додати мову', 0, 0),
+    (119, 'en-US', 'Languages', 0, 0),
+    (119, 'ru-RU', 'Языки', 0, 0),
+    (119, 'uk-UA', 'Мови', 0, 0),
+    (120, 'en-US', 'Update language:', 0, 0),
+    (120, 'ru-RU', 'Изменение языка:', 0, 0),
+    (120, 'uk-UA', 'Зміна мови:', 0, 0),
+    (121, 'en-US', 'If you select this option here, it will be reset everywhere', 0, 0),
+    (121, 'ru-RU', 'Если Вы выберете данную опцию здесь, она будет сброшена везде', 0, 0),
+    (121, 'uk-UA', 'Якщо Ви виберете цю опцію тут, вона буде скинута всюди', 0, 0),
+    (122, 'en-US', 'Update language', 0, 0),
+    (122, 'ru-RU', 'Изменение языка', 0, 0),
+    (122, 'uk-UA', 'Оновлення мови', 0, 0),
+    (123, 'en-US', 'The combination of ID and Language has already been taken.', 0, 0),
+    (123, 'ru-RU', 'Данное сочетание ID и языка уже существует', 0, 0),
+    (123, 'uk-UA', 'Дане поєднання ID і мови вже існує', 0, 0),
+    (124, 'en-US', 'ID', 0, 0),
+    (124, 'ru-RU', 'ID', 0, 0),
+    (124, 'uk-UA', 'ID', 0, 0),
+    (125, 'en-US', 'Language', 0, 0),
+    (125, 'ru-RU', 'Язык', 0, 0),
+    (125, 'uk-UA', 'Мова', 0, 0),
+    (126, 'en-US', 'Translation', 0, 0),
+    (126, 'ru-RU', 'Перевод', 0, 0),
+    (126, 'uk-UA', 'Переклад', 0, 0),
+    (127, 'en-US', 'You can only override the default language', 0, 0),
+    (127, 'ru-RU', 'Вы можете только изменить язык установленный по умолчанию', 0, 0),
+    (127, 'uk-UA', 'Ви можете тільки змінити мову встановлену за замовчуванням', 0, 0),
+    (128, 'en-US', 'Url (ISO 639-1)', 0, 0),
+    (128, 'ru-RU', 'Url (ISO 639-1)', 0, 0),
+    (128, 'uk-UA', 'Url (ISO 639-1)', 0, 0),
+    (129, 'en-US', 'Locale', 0, 0),
+    (129, 'ru-RU', 'Локаль', 0, 0),
+    (129, 'uk-UA', 'Локаль', 0, 0),
+    (130, 'en-US', 'Name', 0, 0),
+    (130, 'ru-RU', 'Название', 0, 0),
+    (130, 'uk-UA', 'Назва', 0, 0),
+    (131, 'en-US', 'Is Default', 0, 0),
+    (131, 'ru-RU', 'По умолчанию', 0, 0),
+    (131, 'uk-UA', 'За замовчуванням', 0, 0),
+    (132, 'en-US', 'Created At', 0, 0),
+    (132, 'ru-RU', 'Создано', 0, 0),
+    (132, 'uk-UA', 'Створено', 0, 0),
+    (133, 'en-US', 'Updated At', 0, 0),
+    (133, 'ru-RU', 'Обновлено', 0, 0),
+    (133, 'uk-UA', 'Оновлено', 0, 0),
+    (134, 'en-US', 'Message category', 0, 0),
+    (134, 'ru-RU', 'Категория перевода', 0, 0),
+    (134, 'uk-UA', 'Категорія перекладу', 0, 0),
+    (135, 'en-US', 'Message key', 0, 0),
+    (135, 'ru-RU', 'Ключ перевода', 0, 0),
+    (135, 'uk-UA', 'Ключ перекладу', 0, 0),
+    (136, 'en-US', 'The requested translation does not exist', 0, 0),
+    (136, 'ru-RU', 'Запрашиваемый перевод не существует', 0, 0),
+    (136, 'uk-UA', 'Запитуваний переклад не існує', 0, 0),
+    (137, 'en-US', 'Translation updated successfully!', 0, 0),
+    (137, 'ru-RU', 'Перевод успешно изменен!', 0, 0),
+    (137, 'uk-UA', 'Переклад змінено успішно!', 0, 0),
+    (138, 'en-US', 'The requested language does not exist', 0, 0),
+    (138, 'ru-RU', 'Запрашиваемый язык не существует', 0, 0),
+    (138, 'uk-UA', 'Запитувана мова не існує', 0, 0),
+    (139, 'en-US', 'You can''t delete default language!', 0, 0),
+    (139, 'ru-RU', 'Вы не можете удалить язык по умолчанию!', 0, 0),
+    (139, 'uk-UA', 'Ви не можете видалити мову за замовчуванням!', 0, 0),
+    (140, 'en-US', 'Language deleted successfully!', 0, 0),
+    (140, 'ru-RU', 'Язык удален успешно!', 0, 0),
+    (140, 'uk-UA', 'Мову видалено успішно!', 0, 0),
+    (141, 'en-US', 'Language updated successfully!', 0, 0),
+    (141, 'ru-RU', 'Язык изменен успешно!', 0, 0),
+    (141, 'uk-UA', 'Мова змінена успішно!', 0, 0),
+    (142, 'en-US', 'Language created successfully!', 0, 0),
+    (142, 'ru-RU', 'Язык создан успешно!', 0, 0),
+    (142, 'uk-UA', 'Мова створена успішно!', 0, 0),
+    (143, 'en-US', 'Русский', 0, 0),
+    (143, 'ru-RU', 'Русский', 0, 0),
+    (143, 'uk-UA', 'Русский', 0, 0),
+    (144, 'en-US', 'Українська', 0, 0),
+    (144, 'ru-RU', 'Українська', 0, 0),
+    (144, 'uk-UA', 'Українська', 0, 0),
+    (145, 'en-US', 'English', 0, 0),
+    (145, 'ru-RU', 'English', 0, 0),
+    (145, 'uk-UA', 'English', 0, 0),
+    (146, 'en-US', 'Enter a url...', 0, 0),
+    (146, 'ru-RU', 'Введите url...', 0, 0),
+    (146, 'uk-UA', 'Введіть url...', 0, 0),
+    (147, 'en-US', 'Enter a locale...', 0, 0),
+    (147, 'ru-RU', 'Введите локаль...', 0, 0),
+    (147, 'uk-UA', 'Введіть локаль...', 0, 0),
+    (148, 'en-US', 'Enter a name...', 0, 0),
+    (148, 'ru-RU', 'Введите имя...', 0, 0),
+    (148, 'uk-UA', 'Введіть ім’я...', 0, 0),
+    (149, 'en-US', 'Enter a translate...', 0, 0),
+    (149, 'ru-RU', 'Введите перевод...', 0, 0),
+    (149, 'uk-UA', 'Введіть переклад...', 0, 0);
 SQL
         );
     }
 
-    public function down()
-    {
-        Yii::$app->multilangCache->flush();
-        if (Yii::$app->db->schema->getTableSchema(Message::TABLE_NAME) !== NULL) {
-            $this->dropTable(Message::TABLE_NAME);
-        }
-        if (Yii::$app->db->schema->getTableSchema(SourceMessage::TABLE_NAME) !== NULL) {
-            $this->dropTable(SourceMessage::TABLE_NAME);
-        }
-        if (Yii::$app->db->schema->getTableSchema(Language::TABLE_NAME) !== NULL) {
-            $this->dropTable(Language::TABLE_NAME);
-        }
-    }
 }

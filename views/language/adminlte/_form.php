@@ -12,11 +12,11 @@ use xz1mefx\adminlte\widgets\ActiveForm;
         <div class="box-body-overflow">
             <?php $form = ActiveForm::begin(['enableAjaxValidation' => TRUE, 'validateOnType' => TRUE]); ?>
 
-            <?= $form->field($model, 'url')->textInput(['maxlength' => TRUE]) ?>
+            <?= $form->field($model, 'url')->textInput(['maxlength' => TRUE, 'placeholder' => Yii::t('multilang-tools', 'Enter a url...')]) ?>
 
-            <?= $form->field($model, 'locale')->textInput(['maxlength' => TRUE]) ?>
+            <?= $form->field($model, 'locale')->textInput(['maxlength' => TRUE, 'placeholder' => Yii::t('multilang-tools', 'Enter a locale...')]) ?>
 
-            <?= $form->field($model, 'name')->textInput(['maxlength' => TRUE]) ?>
+            <?= $form->field($model, 'name')->textInput(['maxlength' => TRUE, 'placeholder' => Yii::t('multilang-tools', 'Enter a name...')]) ?>
 
             <?php if (!$model['default']): ?>
                 <?= $form->field($model, 'default')->checkbox() ?>
