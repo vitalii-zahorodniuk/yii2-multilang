@@ -53,6 +53,7 @@ CSS
 
     <?php Pjax::begin(); ?>
     <?= GridView::widget([
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [

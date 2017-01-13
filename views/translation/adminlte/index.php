@@ -30,6 +30,7 @@ $this->params['title'] = $this->title;
         <div class="box-body-overflow">
             <?php Pjax::begin(); ?>
             <?= GridView::widget([
+                'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'columns' => [

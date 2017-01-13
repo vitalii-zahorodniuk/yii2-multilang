@@ -20,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php Pjax::begin(); ?>
     <?= GridView::widget([
+        'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
