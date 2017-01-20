@@ -11,6 +11,7 @@ The extension is a package of tools to implement multilanguage in Yii2 project:
 - Has a widget to set a correct hreflang attributes
 - Provides a CRUD actions for edit the list of languages and the interface translations
 - Has a widget to create language selector (for adminlte theme)
+- Has a `@weblang\` alias with current language
 
 Installation
 ------------
