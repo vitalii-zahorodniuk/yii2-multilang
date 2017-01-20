@@ -150,6 +150,7 @@ class Lang extends Component
             'value' => $dDLang,
             'expire' => time() + 60 * 60 * 24 * 90, // 3 month
         ]));
+        Yii::setAlias('@weblang', "@web/$dDLang");
     }
 
     /**
