@@ -48,6 +48,8 @@ CSS
     <div class="box-header">
         <?php if ($canAdd): ?>
             <?= Html::a(Yii::t('multilang-tools', 'Add language'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?php else: ?>
+            &nbsp;
         <?php endif; ?>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
