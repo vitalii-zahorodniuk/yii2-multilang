@@ -30,8 +30,8 @@ class m161210_131014_multilang_init extends Migration
             'name' => $this->string()->notNull(),
             'default' => $this->smallInteger(1)->notNull()->defaultValue(0),
 
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer()->unsigned()->notNull()->defaultValue(0),
+            'updated_at' => $this->integer()->unsigned()->notNull()->defaultValue(0),
         ], $tableOptions);
 
         // Add default languages
@@ -64,16 +64,16 @@ class m161210_131014_multilang_init extends Migration
             'category' => $this->string(32),
             'message' => $this->text()->notNull(),
 
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer()->unsigned()->notNull()->defaultValue(0),
+            'updated_at' => $this->integer()->unsigned()->notNull()->defaultValue(0),
         ], $tableOptions);
         $this->createTable(Message::TABLE_NAME, [
             'id' => $this->integer()->unsigned(),
             'language' => $this->string(16),
             'translation' => $this->text(),
 
-            'created_at' => $this->integer()->notNull(),
-            'updated_at' => $this->integer()->notNull(),
+            'created_at' => $this->integer()->unsigned()->notNull()->defaultValue(0),
+            'updated_at' => $this->integer()->unsigned()->notNull()->defaultValue(0),
         ], $tableOptions);
 
         $this->createIndex('message_id_language', Message::TABLE_NAME, ['id', 'language'], TRUE);

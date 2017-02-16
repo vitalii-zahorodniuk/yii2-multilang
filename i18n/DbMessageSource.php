@@ -86,18 +86,24 @@ class DbMessageSource extends \yii\i18n\DbMessageSource
             $sourceMsgId = $this->getSourceMessageId($category, $message);
             // if source message id was not found -> create new source message an get it id
             if ($sourceMsgId == 0) {
-                Yii::$app->db->createCommand()->insert($this->sourceMessageTable, [
+                $sourceMessageModel = new SourceMessage();
+                $sourceMessageModel->setAttributes([
                     'category' => $category,
                     'message' => $message,
-                ])->execute();
+                ]);
+                $sourceMessageModel->save();
+
                 $sourceMsgId = Yii::$app->db->getLastInsertID();
             }
             // insert new source message into db
-            Yii::$app->db->createCommand()->insert($this->messageTable, [
+            $messageModel = new Message();
+            $messageModel->setAttributes([
                 'id' => $sourceMsgId,
                 'language' => $language,
                 'translation' => '',
-            ])->execute();
+            ]);
+            $messageModel->save();
+
             // update messages array
             $this->_messages[$key][$message] = '';
             // rewrite cache if need
