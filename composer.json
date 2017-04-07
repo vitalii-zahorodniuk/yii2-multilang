@@ -17,7 +17,7 @@
     }
   ],
   "require": {
-    "xz1mefx/yii2-base": "*"
+    "xz1mefx/yii2-base": "@dev"
   },
   "autoload": {
     "psr-4": {

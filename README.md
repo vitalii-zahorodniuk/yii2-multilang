@@ -21,6 +21,13 @@ Installation
     php composer.phar require --prefer-dist xz1mefx/yii2-multilang "~1"
     ```
 
+1.  Add new multilangCache component to common config file:
+    ```php
+    'multilangCache' => [
+        'class' => \xz1mefx\multilang\caching\MultilangCache::className(),
+    ],
+    ```
+
 1.  Execute migration:
     ```bash
     php yii migrate --migrationPath=@vendor/xz1mefx/yii2-multilang/migrations --interactive=0
@@ -35,13 +42,6 @@ Installation
     class m161221_135351_multilang_init extends m161210_131014_multilang_init
     {
     }
-    ```
-
-1.  Add new multilangCache component to common config file:
-    ```php
-    'multilangCache' => [
-        'class' => \xz1mefx\multilang\caching\MultilangCache::className(),
-    ],
     ```
 
 1.  Override components in common config file:
@@ -61,9 +61,6 @@ Installation
     ```
 
 1.  [*not necessary*] If you use [`iiifx-production/yii2-autocomplete-helper`][link-autocomplete-extension] you need to run:
-    ```bash
-    composer autocomplete
-    ```
 
 1.  Override some components in console config file:
     ```php
